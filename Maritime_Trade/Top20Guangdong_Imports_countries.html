@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <title>Top20 Guangdong Imports from the World</title>
+  <link href="https://playground.anychart.com/gallery/src/Maps_Connectors/Top_Chinese_Exports_to_the_World/iframe" rel="canonical">
+  <meta content="AJAX Chart,Chart from JSON,Connector Map,Flow Map,Geo Chart,JSON Chart,JSON Plot,Tooltip" name="keywords">
+  <meta content="AnyChart - JavaScript Charts designed to be embedded and integrated" name="description">
+  <!-- [if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif] -->
+  <link href="https://cdn.anychart.com/releases/v8/css/anychart-ui.min.css" rel="stylesheet" type="text/css">
+  <link href="https://cdn.anychart.com/releases/v8/fonts/css/anychart-font.min.css" rel="stylesheet" type="text/css">
+  <style>
+    html,
+    body,
+    #container {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;}
+</style>
+
+ </head>
+ <body>
+  <div id="container"></div>
+  <script src="https://cdn.anychart.com/geodata/latest/custom/world/world.js"></script>
+  <script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js"></script>
+  <script src="https://cdn.anychart.com/releases/v8/js/anychart-ui.min.js"></script>
+  <script src="https://cdn.anychart.com/releases/v8/js/anychart-exports.min.js"></script>
+  <script src="https://cdn.anychart.com/releases/v8/js/anychart-map.min.js"></script>
+  <script src="https://cdn.anychart.com/releases/v8/js/anychart-data-adapter.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.3.15/proj4.js"></script>
+  
+  
+  <script type="text/javascript">
+    anychart.onDocumentReady(function () {
+      anychart.data.loadJsonFile(
+    'https://raw.githubusercontent.com/YunxinDENG/GBA_viz/main/Maritime_Trade/data/GD_import2022.json',
+
+    
+    function (data) {
+      // Creates map chart
+
+
+      var map = anychart.connector();
+      
+      // create map chart
+      // var map = anychart.map();
+
+      var data_marker = 
+        [
+          {
+            "lat": 35.907757,
+            "long": 127.766922,
+            "name": "Korea",
+            "label":{
+              "position":"left", 
+              "anchor":"right-bottom"}
+          },
+          {
+            "lat": 36.204824,
+            "long": 138.252924,
+            "name": "Japan",
+            "label":{
+              "position":"left", 
+              "anchor":"bottom"}
+          },
+          {
+            "lat": 4.210484,
+            "long": 101.975766,
+            "name": "Malaysia",
+            "label":{
+              "position":"left", 
+              "anchor":"right-bottom"}
+          },
+          {
+            "lat": 14.058324,
+            "long": 108.277199,
+            "name": "Vietnam",
+            "label":{
+              "position":"left", 
+              "anchor":"right-bottom"}
+          },
+          {
+            "lat": 15.870032,
+            "long": 100.992541,
+            "name": "Thailand",
+            "label":{
+              "position":"left", 
+              "anchor":"right-bottom"}
+          },
+          {
+            "lat": 37.09024,
+            "long": -95.712891,
+            "name": "United States",
+            "label":{
+              "position":"left", 
+              "anchor":"right-bottom"}
+          },
+          {
+            "lat": 51.165691,
+            "long": 10.451526,
+            "name": "Germany",
+            "label":{
+              "position":"left", 
+              "anchor":"bottom"}
+          },
+          {
+            "lat": -0.789275,
+            "long": 113.921327,
+            "name": "Indonesia",
+            "label":{
+              "position":"bottom", 
+              "anchor":"bottom"}
+          },
+          {
+            "lat": -25.274398,
+            "long": 133.775136,
+            "name": "Australia",
+            "label":{
+              "position":"left", 
+              "anchor":"left-top"}
+          },
+          {
+            "lat": 12.879721,
+            "long": 121.774017,
+            "name": "Philippines",
+            "label":{
+              "position":"left", 
+              "anchor":"right-bottom"}
+          },
+          {
+            "lat": 1.352083,
+            "long": 103.819836,
+            "name": "Singapore",
+            "label":{
+              "position":"left", 
+              "anchor":"right-bottom"}
+          },
+          {
+            "lat": -14.235004,
+            "long": -51.92528,
+            "name": "Brazil",
+            "label":{
+              "position":"left", 
+              "anchor":"right-bottom"}
+          },
+          {
+            "lat": -30.559482,
+            "long": 22.937506,
+            "name": "South Africa",
+            "label":{
+              "position":"left", 
+              "anchor":"right-bottom"}
+          },
+          {
+            "lat": 46.818188,
+            "long": 8.227512,
+            "name": "Switzerland",
+            "label":{
+              "position":"left", 
+              "anchor":"right-bottom"}
+          },
+          {
+            "lat": -35.675147,
+            "long": -71.542969,
+            "name": "Chile",
+            "label":{
+              "position":"left", 
+              "anchor":"left-top"}
+          },
+          {
+            "lat": 46.227638,
+            "long": 2.213749,
+            "name": "France",
+            "label":{
+              "position":"left", 
+              "anchor":"right-bottom"}
+          },
+          {
+            "lat": 21.913965,
+            "long": 95.956223,
+            "name": "Myanmar",
+            "label":{
+              "position":"left", 
+              "anchor":"right-bottom"}
+          },
+          {
+            "lat": 61.52401,
+            "long": 105.318756,
+            "name": "Russia",
+            "label":{
+              "position":"left", 
+              "anchor":"right-bottom"}
+          },
+          {
+            "lat": 23.885942,
+            "long": 45.079162,
+            "name": "Saudi Arabia",
+            "label":{
+              "position":"left", 
+              "anchor":"right-bottom"}
+          },
+          {
+            "lat": 56.130366,
+            "long": -106.346771,
+            "name": "Canada",
+            "label":{
+              "position":"left", 
+              "anchor":"right-bottom"}
+          },
+        ]
+        // create connector series
+        var series_connector = map.connector(data);
+
+        // create marker series
+        var series_marker = map.marker(data_marker);
+
+        // Sets settings for map chart
+        map.padding([10, 10, 10, 10]);
+        map.geoData('anychart.maps.world');
+        map.interactivity().selectionMode('none');
+
+        map
+          .unboundRegions()
+          .enabled(true)
+          .fill('#E1E1E1')
+          .stroke('#D2D2D2');
+
+        // Sets title for map chart and customizes it
+        map
+          .title()
+          .enabled(true)
+          .useHtml(true)
+          .padding([0, 0, 20, 0])
+          .text(
+            'Top20 Guangdong Imports from the World<br/>' 
+            //  + '<span style="color:#212121; font-size: 13px;">According to www.worldsrichestcountries.com</span>'
+          );
+
+      // Sets credits data
+      // map
+      //   .credits()
+      //   .enabled(true)
+      //   .url(
+      //     'http://www.worldsrichestcountries.com/top_china_exports.html'
+      //   )
+      //   .text(
+      //     'Data source: http://www.worldsrichestcountries.com/top_china_exports.html'
+      //   );
+
+      // Helper function to create several series
+      var createSeries = function (name, data, color) {
+        // Creates connector series for destinations and customizes them
+        var connectorSeries = map
+          .connector(data)
+          .name(name)
+          .fill(color)
+          .stroke('1.5 ' + color)
+          .curvature(0);
+
+        connectorSeries.hovered().stroke('1.5 #212121').fill('#212121');
+
+        connectorSeries
+          .markers()
+          .position('100%')
+          .size(20)
+          .fill(color)
+          .stroke('2 #E1E1E1');
+
+        connectorSeries
+          .hovered()
+          .markers()
+          .position('100%')
+          .size(20)
+          .fill('#212121')
+          .stroke('2 #455a64');
+
+        if (name === 'More than 12%') {
+          connectorSeries.startSize(9).endSize(3.5);
+        } else if (name === '10 - 12%') {
+          connectorSeries.startSize(7).endSize(2.5);
+        } else if (name === '7 - 10%') {
+          connectorSeries.startSize(5).endSize(1.5);
+        } else if (name === '3 - 7%') {
+          connectorSeries.startSize(3).endSize(0.5);
+        } else {
+          connectorSeries.startSize(0.5).endSize(0.23);
+        }
+
+        // Sets settings for labels for the destination series
+        connectorSeries
+          .labels()
+          .enabled(true)
+          .offsetY(0)
+          .offsetX(0)
+          .fontSize(10)
+          .position('100%')
+          .format(function () {
+            return this.getData('to');
+          });
+
+        connectorSeries
+          .hovered()
+          .labels()
+          .enabled(true)
+          .fontColor('#212121');
+
+        // Sets settings for legend items
+        connectorSeries
+          .legendItem()
+          .iconType('square')
+          .iconFill(color)
+          .iconStroke(false);
+
+        // Sets tooltip setting for the destination series
+        connectorSeries
+          .tooltip()
+          .useHtml(true)
+          .padding([8, 13, 10, 13])
+          .titleFormat('{%to}')
+          .fontSize(13)
+          .format(function () {
+            return (
+              '<span style="font-size: 12px; color: #cbcbcb">Total:</span> $' +
+              this.getData('total') +
+              ' <br/>' +
+              '<span style="font-size: 12px; color: #cbcbcb">Overall Exports Percent:</span> ' +
+              this.getData('percent') * 100 +
+              '%'
+            );
+          });
+      };
+
+      // Creates Dataset from Sample data
+      var exportDataSet = anychart.data.set(data).mapAs();
+
+      // Creates 5 series, filtering the data by the amount of Fatalities
+      createSeries(
+        'Less than 3%',
+        exportDataSet.filter('percent', filterFunction(0, 0.0331)),
+        '#64b5f6'
+      );
+      createSeries(
+        '3 - 7%',
+        exportDataSet.filter('percent', filterFunction(0.0331, 0.0784)),
+        '#1976d2'
+      );
+      createSeries(
+        '7 - 10%',
+        exportDataSet.filter('percent', filterFunction(0.0784, 0.1011)),
+        '#355CB1'
+      );
+      createSeries(
+        '10 - 12%',
+        exportDataSet.filter('percent', filterFunction(0.1011, 0.1238)),
+        '#5C3883'
+      );
+      createSeries(
+        'More than 12%',
+        exportDataSet.filter('percent', filterFunction(0.1238,0.15)),
+        '#880e4f'
+      );
+
+      // Turns on the legend for the sample
+      map
+        .legend()
+        .enabled(true)
+        .position('center-bottom')
+        .padding([20, 0, 0, 0])
+        .fontSize(10);
+
+      map
+        .legend()
+        .title()
+        .enabled(true)
+        .fontSize(13)
+        .padding([0, 0, 5, 0])
+        .text('Percent of Guangdong Overall Imports from other countries');
+
+      // create zoom controls
+      var zoomController = anychart.ui.zoom();
+      zoomController.render(map);
+
+      // Sets container id for the chart
+      map.container('container');
+
+      // Initiates chart drawing
+      map.draw();
+    }
+  );
+});
+
+// Helper function to bind data field to the local var.
+function filterFunction(val1, val2) {
+  if (val2) {
+    return function (fieldVal) {
+      return val1 <= fieldVal && fieldVal < val2;
+    };
+  }
+  return function (fieldVal) {
+    return val1 <= fieldVal;
+  };
+}</script>
+ </body>
+</html>
