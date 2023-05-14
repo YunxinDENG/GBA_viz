@@ -5,139 +5,159 @@
         "percent": 0.146465187,
         "from": "South Korea",
         "to": "Guangdong",
-        "curvature": -0.5
+        "curvature": -0.5,
+        "group": 1
     },
     {
         "points": [36.204824,138.252924, 23.15792, 113.27324],
         "total": 39070907247,
         "percent": 0.132274968,
         "from": "Japan",
-        "curvature": 0.5
+        "curvature": 0.5,
+        "group": 1
     },
     {
         "points": [4.210484, 101.975766, 23.15792, 113.27324],
         "total": 25094232558,
         "percent": 0.084956789,
         "from": "Malaysia",
-        "curvature": -0.3
+        "curvature": -0.3,
+        "group": 1
     },
     {
         "points": [14.058324, 108.277199,23.15792, 113.27324],
         "total": 21461899867,
         "percent": 0.072659488,
         "from": "Vietnam",
-        "curvature": 0.5
+        "curvature": 0.5,
+        "group": 1
     },
     {
         "points": [15.870032, 100.992541, 23.15792, 113.27324],
         "total": 17592190102,
         "percent": 0.059558545,
         "from": "Thailand",
-        "curvature": 0.5
+        "curvature": 0.5,
+        "group": 1
     },
     {
         "points": [37.09024,-95.712891, 23.15792, 113.27324],
         "total": 17001500697,
         "percent": 0.05755876,
         "from": "United States",
-        "curvature": 0.5
+        "curvature": 0.5,
+        "group": 1
     },
     {
         "points": [51.165691, 10.451526, 23.15792, 113.27324],
         "total": 9976767237,
         "percent": 0.033776451,
         "from": "Germany",
-        "curvature": 0.5
+        "curvature": 0.5,
+        "group": 1
     },
     {
         "points": [-0.789275, 113.921327, 23.15792, 113.27324],
         "total": 9239024346,
         "percent": 0.031278814,
         "from": "Indonesia",
-        "curvature": 0.5
+        "curvature": 0.5,
+        "group": 1
     },
     {
         "points": [-25.274398, 133.775136, 23.15792, 113.27324],
         "total": 8584113167,
         "percent": 0.029061606,
         "from": "Australia",
-        "curvature": 0.5
+        "curvature": 0.5,
+        "group": 1
     },
     {
         "points": [12.879721,121.774017, 23.15792, 113.27324],
         "total": 8551021656,
         "percent": 0.028949574,
         "from": "Philippines",
-        "curvature": 0.5
+        "curvature": 0.5,
+        "group": 1
     },
     {
         "points": [1.352083,103.819836, 23.15792, 113.27324],
         "total": 7007562374,
         "percent": 0.023724176,
         "from": "Singapore",
-        "curvature": 0.5
+        "curvature": 0.5,
+        "group": 1
     },
     {
         "points": [-14.235004, -51.92528, 23.15792, 113.27324],
         "total": 6902255243,
         "percent": 0.023367658,
         "from": "Brazil",
-        "curvature": 0.5
+        "curvature": 0.5,
+        "group": 1
     },
     {
         "points": [-30.559482, 22.937506, 23.15792, 113.27324],
         "total": 5527660293,
         "percent": 0.018713952,
         "from": "South Africa",
-        "curvature": 0.5
+        "curvature": 0.5,
+        "group": 1
     },
     {
         "points": [46.818188, 8.227512, 23.15792, 113.27324],
         "total": 4893546058,
         "percent": 0.016567152,
         "from": "Switzerland",
-        "curvature": 0.5
+        "curvature": 0.5,
+        "group": 1
     },
     {
         "points": [-35.675147, -71.542969, 23.15792, 113.27324],
         "total": "4,543,269,469",
         "percent": 0.015381287,
         "from": "Chile",
-        "curvature": 0.5
+        "curvature": 0.5,
+        "group": 1
     },
     {
         "points": [46.227638, 2.213749, 23.15792, 113.27324],
         "total": 4460127796,
         "percent": 0.01509981,
         "from": "France",
-        "curvature": 0.5
+        "curvature": 0.5,
+        "group": 1
     },
     {
         "points": [21.913965, 95.956223, 23.15792, 113.27324],
         "total": 4188858206,
         "percent": 0.014181424,
         "from": "Myanmar",
-        "curvature": 0.5
+        "curvature": 0.5,
+        "group": 1
     },
     {
         "points": [61.52401, 105.318756, 23.15792, 113.27324],
         "total": 3628821765,
         "percent": 0.012285414,
         "from": "Russia",
-        "curvature": 0.5
+        "curvature": 0.5,
+        "group": 1
     },
     {
         "points": [23.885942,45.079162, 23.15792, 113.27324],
         "total": 3259300854,
         "percent": 0.011034397,
         "from": "Saudi Arabia",
-        "curvature": 0.5
+        "curvature": 0.5,
+        "group": 1
     },
     {
         "points": [56.130366, -106.346771, 23.15792, 113.27324],
         "total": 3078982163,
         "percent": 0.010423927,
         "from": "Canada",
-        "curvature": 0.5
+        "curvature": 0.5,
+        "group": 1
     }
 ]
