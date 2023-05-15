@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <meta content="AJAX Chart,Chart from JSON,Connector Map,Flow Map,Geo Chart,JSON Chart,JSON Plot,Tooltip" name="keywords">
+  <meta content="AnyChart - JavaScript Charts designed to be embedded and integrated" name="description">
+  <title>Top20 Guangdong Imports from the World</title>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.3.2/dist/echarts.min.js"></script>
+  <script src="https://cdn.anychart.com/geodata/latest/custom/world/world.js"></script>
+  <script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js"></script>
+  <script src="https://cdn.anychart.com/releases/v8/js/anychart-ui.min.js"></script>
+  <script src="https://cdn.anychart.com/releases/v8/js/anychart-exports.min.js"></script>
+  <script src="https://cdn.anychart.com/releases/v8/js/anychart-map.min.js"></script>
+  <script src="https://cdn.anychart.com/releases/v8/js/anychart-data-adapter.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.3.15/proj4.js"></script>
+  <link href="https://playground.anychart.com/gallery/src/Maps_Connectors/Top_Chinese_Exports_to_the_World/iframe" rel="canonical">
+  <link href="https://cdn.anychart.com/releases/v8/css/anychart-ui.min.css" rel="stylesheet" type="text/css">
+  <link href="https://cdn.anychart.com/releases/v8/fonts/css/anychart-font.min.css" rel="stylesheet" type="text/css">
+  <link href='./css/Guangdong_WorldTrade.css' rel='stylesheet' />
+
+ </head>
+ <body>
+
+    <div id="container"></div>
+    <div class="container">
+        <div id="map-container"></div>
+        <div id="info-container">
+          <h2>Information and Charts</h2>
+          
+          <p> <b>对外贸易历史：</b>至唐代，广州已经成为世界闻名的东方大港。据唐人贾耽记载，中国的海舶便是从广州启航，经过南海、印度洋、波斯湾，直到伊拉克的巴士拉。这条长约1.4万公里的远洋航线，是彼时全球海道交通的大动脉。
+          历史上，中国的对外贸易时开时禁。清康熙盛世，延续明朝隆庆以来的开放政策，实行开海通商政策。1685年，伴随着日益频繁的国际商业交往，中国历史上最早的官方外贸专业团体———广州十三行应运而生。
+          1757年，乾隆皇帝宣布撤消原设的沿海各关，仅留广东的粤海关一口对外通商。作为粤海关属下的中外交易场所，广州十三行成为清帝国唯一合法的外贸特区，中国与世界的贸易全部聚集于此，几乎所有亚洲、欧洲、美洲的主要国家和地区都与十三行发生过直接的贸易关系。广州拥有通往欧洲、拉美、南亚、东洋和大洋洲的环球贸易航线，是清政府闭关政策下唯一幸存的海上丝绸之路。
+          </p>
+
+          <p class="paragraph">
+            <b>现状指标：</b>广州跨境电商业务量已连续7年位居全国空港首位; 2021前三季度，广州外贸进出口总值8160.10亿元，同比增长16.3%，两年平均增长7.1%。其中，出口4823.7亿元，同比增长20.5%；全市实际使用外资约405.84亿元人民币，同比增长12.9%。
+          </p>
+          <p class="paragraph"></p>
+          <b>未来目标：</b>
+          《广州市城市总体规划（2017-2035）》重点发展离岸贸易、转口贸易、保税展示、跨境电商、商务会展、服务贸易、文化旅游等功能与产业，将广州定位为粤港澳大湾区新贸易中心的角色。
+          <br>
+          · 发展定位：
+          高水平对外开放门户、粤港澳大湾区综合服务功能核心区和共享发展区；<br>
+          · 产业核心：
+          重点发展国际航运、国际服务贸易、国际创新金融、科技创新、国际交往等功能。<br>
+          · 港口发展指标：
+          至2035年， 广州港货物年吞吐量达7.5亿吨，集装箱年吞吐量3600万标准集装箱。<br>
+          </p>
+
+          <div id="trade_chart"></div>
+        </div>
+    </div>
+  
+
+    <script type="text/javascript">
+      // side information and chart
+
+      var chartDom = document.getElementById('trade_chart');
+      var myChart = echarts.init(chartDom);
+
+      var option;
+
+      option = {
+        title: {
+          text: 'Guangdong Foreign Trade',
+                textStyle: {
+                    fontStyle: 'normal',
+                    fontSize: 15
+                },
+                left: 'center'
+
+        },
+        tooltip: {
+          trigger: 'axis'
+        },
+        legend: {
+          data: ['import', 'export'],
+          top: "7%"
+        },
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true
+        },
+        toolbox: {
+          feature: {
+            saveAsImage: {}
+          }
+        },
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          data: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022']
+        },
+        yAxis: {
+          type: 'value'
+        },
+        series: [
+          {
+            name: 'import',
+            type: 'line',
+            stack: 'Total',
+            data: [220, 182, 191, 234, 290, 330, 310, 320]
+          },
+          {
+            name: 'export',
+            type: 'line',
+            stack: 'Total',
+            data: [820, 932, 901, 934, 1290, 1330, 1320, 1360]
+          }
+        ]
+      };
+      
+      if (option && typeof option === 'object') {
+        myChart.setOption(option);
+      }
+
+      window.addEventListener('resize', myChart.resize);
+    </script>
+
+
+
+    <script type="text/javascript">
+      // main map visualization
+    anychart.onDocumentReady(function () {
+      anychart.data.loadJsonFile(
+    'https://raw.githubusercontent.com/YunxinDENG/GBA_viz/main/Maritime_Trade/data/GD_import2022.json',
+
+    
+    function (data) {
+      // Creates map chart
+
+
+      var map = anychart.connector();
+      
+      // create map chart
+      // var map = anychart.map();
+
+      var data_marker = 
+        [
+          {
+            "lat": 35.907757,
+            "long": 127.766922,
+            "name": "Korea",
+            "label":{
+              "position":"left", 
+              "anchor":"right-bottom"}
+          },
+          {
+            "lat": 36.204824,
+            "long": 138.252924,
+            "name": "Japan",
+            "label":{
+              "position":"left", 
+              "anchor":"bottom"}
+          },
+          {
+            "lat": 4.210484,
+            "long": 101.975766,
+            "name": "Malaysia",
+            "label":{
+              "position":"left", 
+              "anchor":"right-bottom"}
+          },
+          {
+            "lat": 14.058324,
+            "long": 108.277199,
+            "name": "Vietnam",
+            "label":{
+              "position":"left", 
+              "anchor":"right-bottom"}
+          },
+          {
+            "lat": 15.870032,
+            "long": 100.992541,
+            "name": "Thailand",
+            "label":{
+              "position":"left", 
+              "anchor":"right-bottom"}
+          },
+          {
+            "lat": 37.09024,
+            "long": -95.712891,
+            "name": "United States",
+            "label":{
+              "position":"left", 
+              "anchor":"right-bottom"}
+          },
+          {
+            "lat": 51.165691,
+            "long": 10.451526,
+            "name": "Germany",
+            "label":{
+              "position":"left", 
+              "anchor":"bottom"}
+          },
+          {
+            "lat": -0.789275,
+            "long": 113.921327,
+            "name": "Indonesia",
+            "label":{
+              "position":"bottom", 
+              "anchor":"bottom"}
+          },
+          {
+            "lat": -25.274398,
+            "long": 133.775136,
+            "name": "Australia",
+            "label":{
+              "position":"left", 
+              "anchor":"left-top"}
+          },
+          {
+            "lat": 12.879721,
+            "long": 121.774017,
+            "name": "Philippines",
+            "label":{
+              "position":"left", 
+              "anchor":"right-bottom"}
+          },
+          {
+            "lat": 1.352083,
+            "long": 103.819836,
+            "name": "Singapore",
+            "label":{
+              "position":"left", 
+              "anchor":"right-bottom"}
+          },
+          {
+            "lat": -14.235004,
+            "long": -51.92528,
+            "name": "Brazil",
+            "label":{
+              "position":"left", 
+              "anchor":"right-bottom"}
+          },
+          {
+            "lat": -30.559482,
+            "long": 22.937506,
+            "name": "South Africa",
+            "label":{
+              "position":"left", 
+              "anchor":"right-bottom"}
+          },
+          {
+            "lat": 46.818188,
+            "long": 8.227512,
+            "name": "Switzerland",
+            "label":{
+              "position":"left", 
+              "anchor":"right-bottom"}
+          },
+          {
+            "lat": -35.675147,
+            "long": -71.542969,
+            "name": "Chile",
+            "label":{
+              "position":"left", 
+              "anchor":"left-top"}
+          },
+          {
+            "lat": 46.227638,
+            "long": 2.213749,
+            "name": "France",
+            "label":{
+              "position":"left", 
+              "anchor":"right-bottom"}
+          },
+          {
+            "lat": 21.913965,
+            "long": 95.956223,
+            "name": "Myanmar",
+            "label":{
+              "position":"left", 
+              "anchor":"right-bottom"}
+          },
+          {
+            "lat": 61.52401,
+            "long": 105.318756,
+            "name": "Russia",
+            "label":{
+              "position":"left", 
+              "anchor":"right-bottom"}
+          },
+          {
+            "lat": 23.885942,
+            "long": 45.079162,
+            "name": "Saudi Arabia",
+            "label":{
+              "position":"left", 
+              "anchor":"right-bottom"}
+          },
+          {
+            "lat": 56.130366,
+            "long": -106.346771,
+            "name": "Canada",
+            "label":{
+              "position":"left", 
+              "anchor":"right-bottom"}
+          },
+        ]
+        // create connector series
+        var series_connector = map.connector(data);
+
+        // create marker series
+        var series_marker = map.marker(data_marker);
+
+        // Sets settings for map chart
+        map.padding([10, 10, 10, 10]);
+        map.geoData('anychart.maps.world');
+        map.interactivity().selectionMode('none');
+
+        map
+          .unboundRegions()
+          .enabled(true)
+          .fill('#E1E1E1')
+          .stroke('#D2D2D2');
+
+        // Sets title for map chart and customizes it
+        map
+          .title()
+          .enabled(true)
+          .useHtml(true)
+          .padding([0, 0, 20, 0])
+          .text(
+            'Top20 Guangdong Imports from the World<br/>' 
+            //  + '<span style="color:#212121; font-size: 13px;">According to www.worldsrichestcountries.com</span>'
+          );
+
+      // Sets credits data
+      // map
+      //   .credits()
+      //   .enabled(true)
+      //   .url(
+      //     'http://www.worldsrichestcountries.com/top_china_exports.html'
+      //   )
+      //   .text(
+      //     'Data source: http://www.worldsrichestcountries.com/top_china_exports.html'
+      //   );
+
+      // Helper function to create several series
+      var createSeries = function (name, data, color) {
+        // Creates connector series for destinations and customizes them
+        var connectorSeries = map
+          .connector(data)
+          .name(name)
+          .fill(color)
+          .stroke('1.5 ' + color)
+          .curvature(0);
+
+        connectorSeries.hovered().stroke('1.5 #212121').fill('#212121');
+
+        connectorSeries
+          .markers()
+          .position('100%')
+          .size(20)
+          .fill(color)
+          .stroke('2 #E1E1E1');
+
+        connectorSeries
+          .hovered()
+          .markers()
+          .position('100%')
+          .size(20)
+          .fill('#212121')
+          .stroke('2 #455a64');
+
+        if (name === 'More than 12%') {
+          connectorSeries.startSize(9).endSize(3.5);
+        } else if (name === '10 - 12%') {
+          connectorSeries.startSize(7).endSize(2.5);
+        } else if (name === '7 - 10%') {
+          connectorSeries.startSize(5).endSize(1.5);
+        } else if (name === '3 - 7%') {
+          connectorSeries.startSize(3).endSize(0.5);
+        } else {
+          connectorSeries.startSize(0.5).endSize(0.23);
+        }
+
+        // Sets settings for labels for the destination series
+        connectorSeries
+          .labels()
+          .enabled(true)
+          .offsetY(0)
+          .offsetX(0)
+          .fontSize(10)
+          .position('100%')
+          .format(function () {
+            return this.getData('to');
+          });
+
+        connectorSeries
+          .hovered()
+          .labels()
+          .enabled(true)
+          .fontColor('#212121');
+
+        // Sets settings for legend items
+        connectorSeries
+          .legendItem()
+          .iconType('square')
+          .iconFill(color)
+          .iconStroke(false);
+
+        // Sets tooltip setting for the destination series
+        connectorSeries
+          .tooltip()
+          .useHtml(true)
+          .padding([8, 13, 10, 13])
+          .titleFormat('{%to}')
+          .fontSize(13)
+          .format(function () {
+            return (
+              '<span style="font-size: 12px; color: #cbcbcb">Total:</span> $' +
+              this.getData('total') +
+              ' <br/>' +
+              '<span style="font-size: 12px; color: #cbcbcb">Overall Exports Percent:</span> ' +
+              this.getData('percent') * 100 +
+              '%'
+            );
+          });
+      };
+
+      // Creates Dataset from Sample data
+      var exportDataSet = anychart.data.set(data).mapAs();
+
+      // Creates 5 series, filtering the data by the amount of Fatalities
+      createSeries(
+        'Less than 3%',
+        exportDataSet.filter('percent', filterFunction(0, 0.0331)),
+        '#64b5f6'
+      );
+      createSeries(
+        '3 - 7%',
+        exportDataSet.filter('percent', filterFunction(0.0331, 0.0784)),
+        '#1976d2'
+      );
+      createSeries(
+        '7 - 10%',
+        exportDataSet.filter('percent', filterFunction(0.0784, 0.1011)),
+        '#355CB1'
+      );
+      createSeries(
+        '10 - 12%',
+        exportDataSet.filter('percent', filterFunction(0.1011, 0.1238)),
+        '#5C3883'
+      );
+      createSeries(
+        'More than 12%',
+        exportDataSet.filter('percent', filterFunction(0.1238,0.15)),
+        '#880e4f'
+      );
+
+      // Turns on the legend for the sample
+      map
+        .legend()
+        .enabled(true)
+        .position('center-bottom')
+        .padding([20, 0, 0, 0])
+        .fontSize(10);
+
+      map
+        .legend()
+        .title()
+        .enabled(true)
+        .fontSize(13)
+        .padding([0, 0, 5, 0])
+        .text('Percent of Guangdong Overall Imports from other countries');
+
+      // create zoom controls
+      var zoomController = anychart.ui.zoom();
+      zoomController.render(map);
+
+      // Sets container id for the chart
+      map.container('map-container');
+
+      // Initiates chart drawing
+      map.draw();
+    }
+  );
+});
+
+
+// Helper function to bind data field to the local var.
+function filterFunction(val1, val2) {
+  if (val2) {
+    return function (fieldVal) {
+      return val1 <= fieldVal && fieldVal < val2;
+    };
+  }
+  return function (fieldVal) {
+    return val1 <= fieldVal;
+  };
+}
+
+
+// above are trade flow mapping, followings are information and chart
+
+
+</script>
+ </body>
+</html>
