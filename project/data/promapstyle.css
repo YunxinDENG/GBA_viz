@@ -1,0 +1,588 @@
+
+body { margin:0; padding:0; overflow: hidden}
+
+#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+
+/* #subdesc {
+    opacity: 1;
+    position: absolute;
+    z-index: 1;
+    bottom: 30px;
+    left: 20px;
+    width: 30%;
+    height: 50%;
+    color: #000;
+    background-color: #fff;
+    overflow:auto;
+    z-index: 2;
+    visibility: hidden 
+    } */
+#dlegend{
+    opacity: 0.8;
+    position: absolute;
+    z-index: 1;
+    top: 5px;
+    left: 20px;
+    width: 400px;
+    height: 300px;
+    color: #000;
+    background-color: #F1F1F1;
+    overflow:auto;
+    z-index: 2;
+    visibility: hidden
+}
+#dlegend legendA{
+    position:absolute;
+    top: 0px;
+    height: 25%;
+    overflow:auto;
+}
+#dlegend legendB{
+    position:relative;
+    /* top: 7%; */
+    height: 25%;
+    overflow:auto;
+}
+#dlegend legendC{
+    position:relative;
+    /* top: 14%; */
+    height: 25%;
+    overflow:auto;
+}
+
+#conghua {
+    opacity: 0.8;
+    position: absolute;
+    z-index: 1;
+    bottom: 30px;
+    left: 20px;
+    width: 30%;
+    height: 50%;
+    color: #000;
+    background-color: #F1F1F1;
+    overflow:auto;
+    z-index: 2;
+    visibility: hidden 
+}
+#nansha {
+    opacity: 0.8;
+    position: absolute;
+    z-index: 1;
+    bottom: 30px;
+    left: 20px;
+    width: 30%;
+    height: 50%;
+    color: #000;
+    background-color: #f1f1f1;
+    overflow:auto;
+    z-index: 2;
+    visibility: hidden 
+}
+#huadu {
+    opacity: 0.8;
+    position: absolute;
+    z-index: 1;
+    bottom: 30px;
+    left: 20px;
+    width: 30%;
+    height: 50%;
+    color: #000;
+    background-color: #f1f1f1;
+    overflow:auto;
+    z-index: 2;
+    visibility: hidden 
+}
+#haizhu {
+    opacity: 0.8;
+    position: absolute;
+    z-index: 1;
+    bottom: 30px;
+    left: 20px;
+    width: 30%;
+    height: 50%;
+    color: #000;
+    background-color: #f1f1f1;
+    overflow:auto;
+    z-index: 2;
+    visibility: hidden 
+}
+#panyu {
+    opacity: 0.8;
+    position: absolute;
+    z-index: 1;
+    bottom: 30px;
+    left: 20px;
+    width: 30%;
+    height: 50%;
+    color: #000;
+    background-color: #f1f1f1;
+    overflow:auto;
+    z-index: 2;
+    visibility: hidden 
+}
+#liwan {
+    opacity: 0.8;
+    position: absolute;
+    z-index: 1;
+    bottom: 30px;
+    left: 20px;
+    width: 30%;
+    height: 50%;
+    color: #000;
+    background-color: #f1f1f1;
+    overflow:auto;
+    z-index: 2;
+    visibility: hidden 
+}
+#zengcheng {
+    opacity: 0.8;
+    position: absolute;
+    z-index: 1;
+    bottom: 30px;
+    left: 20px;
+    width: 30%;
+    height: 50%;
+    color: #000;
+    background-color: #f1f1f1;
+    overflow:auto;
+    z-index: 2;
+    visibility: hidden 
+}
+#tianhe {
+    opacity: 0.8;
+    position: absolute;
+    z-index: 1;
+    bottom: 30px;
+    left: 20px;
+    width: 30%;
+    height: 50%;
+    color: #000;
+    background-color: #f1f1f1;
+    overflow:auto;
+    z-index: 2;
+    visibility: hidden 
+}
+#yuexiu {
+    opacity: 0.8;
+    position: absolute;
+    z-index: 1;
+    bottom: 30px;
+    left: 20px;
+    width: 30%;
+    height: 50%;
+    color: #000;
+    background-color: #f1f1f1;
+    overflow:auto;
+    z-index: 2;
+    visibility: hidden 
+}
+#huangpu {
+    opacity: 0.8;
+    position: absolute;
+    z-index: 1;
+    bottom: 30px;
+    left: 20px;
+    width: 30%;
+    height: 50%;
+    color: #000;
+    background-color: #f1f1f1;
+    overflow:auto;
+    z-index: 2;
+    visibility: hidden 
+}
+#baiyun {
+    opacity: 0.8;
+    position: absolute;
+    z-index: 1;
+    bottom: 30px;
+    left: 20px;
+    width: 30%;
+    height: 50%;
+    color: #000;
+    background-color: #f1f1f1;
+    overflow:auto;
+    z-index: 2;
+    visibility: hidden 
+}
+
+/* #subdesc p { */
+#conghua h1{
+    /* border-style: solid; */
+    /* border-color: transparent transparent transparent #627BC1; */
+    /* border-width: 0 4px 0 8px; */
+    font-size: large;
+    font-weight: bolder;
+    color: #000;
+    /* background-color: #F1F1F1; */
+    z-index: 3;
+    /* text-align: justify; */
+    padding: 5px;
+    }
+#conghua p{
+    font-weight: bolder;
+    color: #000;
+    background-color: #f1f1f1;
+    z-index: 2;
+    text-align: justify;
+    padding: 10px;
+    height: 40%;
+    font-size: 11px;
+    top: 2%
+}
+#ch_chart{
+    width: 100%;
+    height: 55%; 
+    left:1%; 
+    bottom:1%;
+    position: absolute;
+    z-index: 2;
+    /* background: #F8F8F8; */
+}
+
+#nansha h1{
+    font-size: large;
+    font-weight: bolder;
+    color: #000;
+    z-index: 3;
+    padding: 5px;
+    }
+#nansha p{
+    font-weight: bolder;
+    color: #000;
+    background-color: #F1F1F1;
+    z-index: 2;
+    text-align: justify;
+    padding: 10px;
+    height: 40%;
+    font-size: 11px;
+    top: 2%
+    }
+#ns_chart{
+    width: 100%;
+    height: 55%; 
+    left:1%; 
+    bottom:1%;
+    position: absolute;
+    z-index: 99;
+    /* background: #F8F8F8; */
+}
+
+
+#huadu h1{
+    font-size: large;
+    font-weight: bolder;
+    color: #000;
+    z-index: 3;
+    padding: 5px;
+    }
+#huadu p{
+    font-weight: bolder;
+    color: #000;
+    background-color: #F1F1F1;
+    z-index: 2;
+    text-align: justify;
+    padding: 10px;
+    height: 40%;
+    font-size: 11px;
+    top: 2%
+    }
+#hd_chart{
+    width: 100%;
+    height: 55%; 
+    left:1%; 
+    bottom:1%;
+    position: absolute;
+    z-index: 99;
+    /* background: #F8F8F8; */
+}
+
+#haizhu h1{
+    font-size: large;
+    font-weight: bolder;
+    color: #000;
+    z-index: 3;
+    padding: 5px;
+    }
+#haizhu p{
+    font-weight: bolder;
+    color: #000;
+    background-color: #F1F1F1;
+    z-index: 2;
+    text-align: justify;
+    padding: 10px;
+    height: 40%;
+    font-size: 11px;
+    top: 2%
+    }
+#hz_chart{
+    width: 100%;
+    height: 55%; 
+    left:1%; 
+    bottom:1%;
+    position: absolute;
+    z-index: 99;
+    /* background: #F8F8F8; */
+}
+
+#panyu h1{
+    font-size: large;
+    font-weight: bolder;
+    color: #000;
+    z-index: 3;
+    padding: 5px;
+    }
+#panyu p{
+    font-weight: bolder;
+    color: #000;
+    background-color: #f1f1f1;
+    z-index: 2;
+    text-align: justify;
+    padding: 10px;
+    height: 40%;
+    font-size: 11px;
+    top: 2%
+    }
+#py_chart{
+    width: 100%;
+    height: 55%; 
+    left:1%; 
+    bottom:1%;
+    position: absolute;
+    z-index: 99;
+    /* background: #F8F8F8; */
+}
+
+#liwan h1{
+    font-size: large;
+    font-weight: bolder;
+    color: #000;
+    z-index: 3;
+    padding: 5px;
+    }
+#liwan p{
+    font-weight: bolder;
+    color: #000;
+    background-color: #f1f1f1;
+    z-index: 2;
+    text-align: justify;
+    padding: 10px;
+    height: 40%;
+    font-size: 11px;
+    top: 2%
+    }
+#lw_chart{
+    width: 100%;
+    height: 55%; 
+    left:1%; 
+    bottom:1%;
+    position: absolute;
+    z-index: 99;
+    /* background: #F8F8F8; */
+}
+
+#zengcheng h1{
+    font-size: large;
+    font-weight: bolder;
+    color: #000;
+    z-index: 3;
+    padding: 5px;
+    }
+#zengcheng p{
+    font-weight: bolder;
+    color: #000;
+    background-color: #f1f1f1;
+    z-index: 2;
+    text-align: justify;
+    padding: 10px;
+    height: 40%;
+    font-size: 11px;
+    top: 2%
+    }
+#zc_chart{
+    width: 100%;
+    height: 55%; 
+    left:1%; 
+    bottom:1%;
+    position: absolute;
+    z-index: 99;
+    /* background: #F8F8F8; */
+}
+
+#tianhe h1{
+    font-size: large;
+    font-weight: bolder;
+    color: #000;
+    z-index: 3;
+    padding: 5px;
+    }
+#tianhe p{
+    font-weight: bolder;
+    color: #000;
+    background-color: #f1f1f1;
+    z-index: 2;
+    text-align: justify;
+    padding: 10px;
+    height: 40%;
+    font-size: 11px;
+    top: 2%
+    }
+#th_chart{
+    width: 100%;
+    height: 55%; 
+    left:1%; 
+    bottom:1%;
+    position: absolute;
+    z-index: 99;
+    /* background: #F8F8F8; */
+}
+
+#yuexiu h1{
+    font-size: large;
+    font-weight: bolder;
+    color: #000;
+    z-index: 3;
+    padding: 5px;
+    }
+#yuexiu p{
+    font-weight: bolder;
+    color: #000;
+    background-color: #f1f1f1;
+    z-index: 2;
+    text-align: justify;
+    padding: 10px;
+    height: 40%;
+    font-size: 11px;
+    top: 2%
+    }
+#yx_chart{
+    width: 100%;
+    height: 55%; 
+    left:1%; 
+    bottom:1%;
+    position: absolute;
+    z-index: 99;
+    /* background: #F8F8F8; */
+}
+
+#huangpu h1{
+    font-size: large;
+    font-weight: bolder;
+    color: #000;
+    z-index: 3;
+    padding: 5px;
+    }
+#huangpu p{
+    font-weight: bolder;
+    color: #000;
+    background-color: #f1f1f1;
+    z-index: 2;
+    text-align: justify;
+    padding: 10px;
+    height: 40%;
+    font-size: 11px;
+    top: 2%
+    }
+#hp_chart{
+    width: 100%;
+    height: 55%; 
+    left:1%; 
+    bottom:1%;
+    position: absolute;
+    z-index: 99;
+    /* background: #F8F8F8; */
+}
+
+#baiyun h1{
+    font-size: large;
+    font-weight: bolder;
+    color: #000;
+    z-index: 3;
+    padding: 5px;
+    }
+#baiyun p{
+    font-weight: bolder;
+    color: #000;
+    background-color: #f1f1f1;
+    z-index: 2;
+    text-align: justify;
+    padding: 10px;
+    height: 40%;
+    font-size: 11px;
+    top: 2%
+    }
+#by_chart{
+    width: 100%;
+    height: 55%; 
+    left:1%; 
+    bottom:1%;
+    position: absolute;
+    z-index: 99;
+    /* background: #F8F8F8; */
+}
+
+#dlegend h2{
+    margin-bottom: 0;
+    font-weight: bolder;
+    color: #000;
+    z-index: 3;
+    padding: 5px;
+    font-size: 12px;
+    }
+#dlegend p{
+    margin-top: 0;
+    /* font-weight: bolder; */
+    color: #000;
+    background-color: #f1f1f1;
+    z-index: 2;
+    /* text-align: justify; */
+    padding: 10px;
+    height: 40%;
+    font-size: 11px;
+    top: 2%
+    }
+
+#text-wrap {
+    top: 20px;
+    right: 20px;
+    position: absolute;
+    float: right; 
+    width: 25%;
+    height: 93%;
+    color: #000;
+    background-color: #fff;
+    overflow:auto;
+    z-index: 2;
+    }
+
+#text-wrap p {
+    border-style: solid;
+    border-color: transparent transparent transparent #4455c4;
+    border-width: 0 4px 0 8px;
+    color: #000;
+    background-color: #F1F1F1;
+    z-index: 2;
+    text-align: justify;
+    padding: 10px;
+    }
+
+#area {
+    right: auto;
+    width: auto;
+    height: 95%; 
+    display: block;
+    z-index: 2;
+    background: #F8F8F8;
+    position: relative;
+    /* overflow:auto; */
+    }
+    
+#text-wrap area {
+    width: 70%;
+    height: 93%; 
+    left:940px; 
+    top:90px;
+    position: absolute;
+    z-index: 99;
+    }
+
+      
