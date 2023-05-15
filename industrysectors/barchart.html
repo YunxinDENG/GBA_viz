@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Proportions of employees working in primary, secondary and tertiary sector, 2011-2021.</title>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+
+<script charset="utf-8" src="https://d3js.org/d3.v4.min.js"></script>
+<script charset="utf-8" src="https://cdnjs.cloudflare.com/ajax/libs/dimple/2.3.0/dimple.latest.min.js"></script>
+    
+<style>
+        
+    #chartContainer {width: 800px; margin: auto; margin-top: 70px; }
+    #chartContainer p {margin-left: 60px; margin-bottom: 5px; margin-top: 0; padding: 0;}
+    #charttitle {font: bold 22px  Verdana, sans-serif;}
+        
+</style>
+</head>
+
+<body>
+
+<div id="chartContainer">
+    <p id="charttitle">Proportions of employees working in primary, secondary and tertiary sector, Guangzhou, 2011-2021.</p>
+    <p id="chartsubhead">Data: Number of employees working in the three sectors by city. Source: <a
+                href="http://stats.gd.gov.cn/gdtjnj/">stats.gd.gov.cn</a>.</p>
+    
+    
+</div>
+
+
+
+	<script type="text/javascript">
+		var svg = dimple.newSvg("#chartContainer", 800, 600);
+
+		d3.csv("gzchart.csv", function (data) {
+			var chart = new dimple.chart(svg, data);
+			chart.setBounds(60, 30, 700, 500);
+            
+
+			// Set x-axis categories
+			var x = chart.addCategoryAxis("x", "Year");
+			x.addOrderRule("Year");
+
+			// Set y-axis and series
+            var y = chart.addPctAxis("y", "Proportion");
+            var series = chart.addSeries("Sector", dimple.plot.bar);
+              series.addOrderRule(["Primary Sector", "Secondary Sector", "Tertiary Sector"]);
+            
+            chart.defaultColors = [
+                new dimple.color("#74c476"), 
+                new dimple.color("#6baed6"), 
+                new dimple.color("#fd8d3c") 
+];
+
+            chart.addLegend(60, 10, 550, 20, "left", series);
+            chart.draw(1000);
+		});
+        
+
+
+        
+	</script>
+    
+    
+    
+
+
+</body>
+</html>
+			
