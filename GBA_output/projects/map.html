@@ -1,0 +1,1596 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>Guangzhou Urban Renewal Projects by District</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.3.2/dist/echarts.min.js"></script>
+    <script charset="utf-8" src="https://d3js.org/d3.v4.min.js"></script>
+    <link href='../assets/css/promapstyle.css' rel='stylesheet' />
+
+</head>
+
+<body>
+
+<div id='map'></div>
+
+<div id='conghua'>
+    <h1>Conghua</h1>
+    <p>In the past, due to its unique geographical and climatic conditions, the leading industries in Conghua were mainly agriculture and tea cultivation.<br>
+    <br>In the future it will develop three main categories of industries in a balanced manner, with a particular focus on New Generation Information Technology.</p>
+    <div id="ch_chart"></div>
+</div>
+<div id='nansha'>
+    <h1>Nansha</h1>
+    <p>Located near the mouth of the Pearl River, Nansha District was rich in water and land resources, and agriculture and fishing were important economic pillars of the district at the time.<br>
+    <br>In the future it will focus on the development of Advanced Manufacturing Industry, especially Intelligent Equipment.</p>
+    <div id="ns_chart"></div>
+</div>
+<div id='huadu'>
+    <h1>Huadu</h1>
+    <p>Decades ago, the leading industry in Huadu District was mainly agriculture and garden flowers, and it was an important flower supply area in Guangzhou.<br>
+    <br>Nowadays, Huadu is developing in a balanced way in all three categories of industries.</p>
+        <div id="hd_chart"></div>
+</div>
+<div id='haizhu'>
+    <h1>Haizhu</h1>
+    <p>The Haizhu District is strategically located near the mouth of the Pearl River. At that time, the ship repair and marine engineering industry in Haizhu District was the main economic pillar of the district.<br>
+    <br>It is now developed mainly for New Generation Information Technology, Urban Consumer Goods Industry, etc.</p>
+     <div id="hz_chart"></div>
+</div>
+<div id='panyu'>
+    <h1>Panyu</h1>
+    <p>A few decades ago, the leading industries in the Panyu district were mainly agriculture and handicrafts.<br>
+    <br>The leading industries are now mainly Trade Services and New Generation Information Technology.</p>
+     <div id="py_chart"></div> 
+</div>
+<div id='liwan'>
+    <h1>Liwan</h1>
+    <p>In the past, Liwan District was one of the commercial and trading centres of Guangzhou and was known for its light manufacturing industry. The trading industry also developed in the district<br>
+    <br>Its leading industries now are Modern Services and Strategic Emerging Industries.</p>
+     <div id="lw_chart"></div> 
+</div>
+<div id='zengcheng'>
+    <h1>Zengcheng<h1>
+        <p>Zengcheng's geographical conditions were ideal for agriculture and supported the development of handicrafts. 
+            <br><br>However, the district has since shifted its focus towards the growth of IT, Trade Services, and Automotive Manufacturing Industry.
+        </p>
+     <div id="zc_chart"></div> 
+</div>
+<div id='tianhe'>
+    <h1>Tianhe</h1>
+    <p>Tianhe District was known in the past for its light manufacturing industries such as textiles, garments and home appliances. In addition, the electronics manufacturing industry has also been developed in Tianhe District.<br>
+    <br>It is now vigorously developing New Generation Information Technology.</p>
+     <div id="th_chart"></div> 
+</div>
+<div id='yuexiu'>
+    <h1>Yuexiu</h1>
+    <p>Yuexiu District was one of the traditional industrial areas of Guangzhou a few decades ago, with leading industries including textiles, garments, food processing and light industrial manufacturing.<br>
+    <br>Development of Trade Services is now the main focus.</p>     
+        <div id="yx_chart"></div> 
+</div>
+<div id='huangpu'>
+    <h1>Huangpu</h1>
+    <p>Huangpu District was once one of the major bases of China's heavy industry, with a number of large steel enterprises and shipyards. Its leading industries at that time were heavy industry, particularly steel and shipbuilding.<br>
+    <br>It now develops mainly Modern Services and Strategic Emerging Industries, with Trade Services accounting for the largest share.</p>
+     <div id="hp_chart"></div> 
+</div>
+<div id='baiyun'>
+    <h1>Baiyun<h1>
+    <p>A few decades ago, the leading industries in the Baiyun district were light industry, particularly textiles and clothing.
+    <br><br>But now it focuses on Modern Services and Strategic Emerging Industries, especially Trade Services.</p>
+    <div id="by_chart"></div> 
+</div>
+
+<!-- legend block -->
+<div id="dlegend">
+    <div id="legendA">
+    <h2>A: Modern Services</h2>
+        <p>a1: Financial Services&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a2: Modern Logistics Services<br>
+            a3: Technology Services&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a4: Trade Services<br>
+            a5: Cultural Tourism Services&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a6: Business Services<br>
+            a7: Education & Healthcare Services&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a8: Other Services</p>
+    </div> 
+    <div id="legendB">   
+        <h2>B: Strategic Emerging Industries</h2>
+        <p>b1: New Generation Information Technology&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b2: Intelligent Connected Vehicles<br>
+            b3: Biopharmaceuticals&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b4: Digital Creatives<br>
+            b5: New Energy & Materials&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b6:New Energy Vehicles</p>
+    </div>
+    <div id="legendC">
+        <h2>C: Advanced Manufacturing Industry</h2>
+        <p>c1: Intelligent Equipment&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c2: Automotive Manufacturing Industry<br>
+            c3: Urban Consumer Goods Industry&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c4: High-end Equipment<br>
+            c5: Electronic Information Manufacturing&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c6: Other Manufacturing Industries</p>
+    </div>
+    </div>
+ 
+    
+
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiMjIxMjg3MjQiLCJhIjoiY2xkMWg3dGI2MGN1MDN3cDk5NDdueGJpZiJ9.7ovXoWFtyVuOWPhr4a5d1Q'; // Put your Mapbox Public Access token here
+
+    // Load a new map in the 'map' HTML div
+    var map = new mapboxgl.Map({
+    container: 'map', // container id
+    style: 'mapbox://styles/22128724/clhme0jdg01nf01qu6bzxbjl6', // style location
+    center: [113.005, 23.215], // starting position [lng, lat]
+    zoom: 8// starting zoom
+
+    });
+
+    map.on('load', function () {
+    map.addSource("districts", {
+        "type": "geojson",   
+        "data": "https://raw.githubusercontent.com/YunxinDENG/GBA_viz/main/project/data/district.geojson"
+    });
+
+    map.addSource('places', {
+        'type': 'geojson',
+        'data': {
+            'type':  'FeatureCollection',
+            'features': [
+                {
+                    'type': 'Feature',
+                    'properties': {
+                        'name': 'TIT',
+                        'description':
+                            '<strong>TIT Creative Industry Park</strong><p>Address: No. 397, Xingang Zhong Road, Haizhu District.<br><br> Click for more information.</p>'
+                    },
+                    'geometry': {
+                        'type': 'Point',
+                        'coordinates': [113.33187,23.105729]
+                    }
+                },
+                {
+                    'type': 'Feature',
+                    'properties': {
+                        'name': 'Yongqing',
+                        'description':
+                            '<strong>Yongqing Fang</strong><p>Address: No. 99, Enning Road, Liwan District.<br><br> Click for more information.</p>'
+                    },
+                    'geometry': {
+                        'type': 'Point',
+                        'coordinates': [113.244,23.120576]
+                    }
+                },
+                {
+                    'type': 'Feature',
+                    'properties': {
+                        'name': 'Liede',
+                        'description':
+                            '<strong>Liede Village</strong><p>Address: No.24 Haiwen Road, Tianhe District.<br><br> Click for more information.</p>'
+                    },
+                    'geometry': {
+                        'type': 'Point',
+                        'coordinates': [113.341831,23.119317]
+                    }
+                }
+            ]
+        }
+    })
+
+
+ 
+    map.addLayer({
+        "id": "district-fills",
+        "type": "fill",      
+        "source": "districts",
+        "layout": {},
+        "paint": {
+            "fill-color": "#fff", 
+            "fill-opacity": 0.5      
+        }
+    });
+ 
+    map.addLayer({
+        "id": "district-borders",
+        "type": "line",      
+        "source": "districts",
+        "layout": {},
+        "paint": {
+            "line-color": "#627BC1", 
+            "line-width": 3          
+        }
+    });
+ 
+    map.addLayer({
+        "id": "district-fills-hover",
+        "type": "fill",
+        "source": "districts",
+        "layout": {},
+        "paint": {
+            "fill-color": "#627BC1",
+            "fill-opacity": 1
+        },
+        "filter": ["==", "district", ""]  // default no layer
+    });
+
+    map.addLayer({
+        'id': 'places',
+        'type': 'circle',
+        'source': 'places',
+        'paint': {
+        'circle-color': '#de553d',
+        'circle-radius': 6,
+        'circle-stroke-width': 2,
+        'circle-stroke-color': '#ffffff'
+        }
+    });
+
+    // Create a popup, but don't add it to the map yet.
+    const popup = new mapboxgl.Popup({
+    closeButton: false,
+    closeOnClick: false
+    });
+
+    var congHua = document.getElementById('conghua');
+    var nanSha = document.getElementById('nansha');
+    var huaDu = document.getElementById('huadu');
+    var haiZhu = document.getElementById('haizhu');
+    var panYu = document.getElementById('panyu');
+    var liWan = document.getElementById('liwan');
+    var zengCheng = document.getElementById('zengcheng');
+    var tianHe = document.getElementById('tianhe');
+    var yueXiu = document.getElementById('yuexiu');
+    var huangPu = document.getElementById('huangpu');
+    var baiYun = document.getElementById('baiyun');
+
+    var dLegend = document.getElementById('dlegend');
+
+
+    map.setFilter("district-fills-hover", ["==", "district", "从化区"]);
+    congHua.style.visibility = 'visible'; 
+    dLegend.style.visibility = 'visible';
+
+ 
+    // Mouse hover selection effect
+    //map.on("mousemove", function(e) {
+    map.on("click", function(e) {
+        var features = map.queryRenderedFeatures(e.point, { layers: ["district-fills"] });
+        if (features.length) {
+            dis_name = features[0].properties.district;
+            map.setFilter("district-fills-hover", ["==", "district", dis_name]);
+            dLegend.style.visibility = 'visible';
+            if(dis_name == "从化区") {congHua.style.visibility = 'visible'; } else{congHua.style.visibility = 'hidden'; }
+            if(dis_name == "南沙区") {nanSha.style.visibility = 'visible'; } else{nanSha.style.visibility = 'hidden';}
+            if(dis_name == "花都区") {huaDu.style.visibility = 'visible'; } else{huaDu.style.visibility = 'hidden';}
+            if(dis_name == "海珠区") {haiZhu.style.visibility = 'visible'; } else{haiZhu.style.visibility = 'hidden';}
+            if(dis_name == "番禺区") {panYu.style.visibility = 'visible'; } else{panYu.style.visibility = 'hidden';}
+            if(dis_name == "荔湾区") {liWan.style.visibility = 'visible'; } else{liWan.style.visibility = 'hidden'; }
+            if(dis_name == "增城区") {zengCheng.style.visibility = 'visible'; } else{zengCheng.style.visibility = 'hidden'; }
+            if(dis_name == "天河区") {tianHe.style.visibility = 'visible'; } else{tianHe.style.visibility = 'hidden';}
+            if(dis_name == "越秀区") {yueXiu.style.visibility = 'visible'; } else{yueXiu.style.visibility = 'hidden';}
+            if(dis_name == "黄埔区") {huangPu.style.visibility = 'visible'; } else{huangPu.style.visibility = 'hidden';}
+            if(dis_name == "白云区") {baiYun.style.visibility = 'visible'; } else{baiYun.style.visibility = 'hidden';}
+
+        } else {
+            map.setFilter("district-fills-hover", ["==", "district", ""]);
+            congHua.style.visibility = 'hidden'; 
+        nanSha.style.visibility = 'hidden';
+        huaDu.style.visibility = 'hidden';
+        haiZhu.style.visibility = 'hidden';
+        panYu.style.visibility = 'hidden';
+        liWan.style.visibility = 'hidden';
+        zengCheng.style.visibility = 'hidden';
+        tianHe.style.visibility = 'hidden';
+        yueXiu.style.visibility = 'hidden';
+        huangPu.style.visibility = 'hidden';
+        baiYun.style.visibility = 'hidden';
+
+        dLegend.style.visibility = 'hidden';
+
+            
+        }
+    });
+ 
+    // Reset the state-fills-hover layer's filter when the mouse leaves the map
+    // map.on("mouseout", function() {
+    //     map.on("mouseout", function() {
+    //     map.setFilter("district-fills-hover", ["==", "district", ""]); // reset 
+    //     congHua.style.visibility = 'hidden'; 
+    //     nanSha.style.visibility = 'hidden';
+    //     huaDu.style.visibility = 'hidden';
+    //     haiZhu.style.visibility = 'hidden';
+    //     panYu.style.visibility = 'hidden';
+    //     liWan.style.visibility = 'hidden';
+    //     zengCheng.style.visibility = 'hidden';
+    //     tianHe.style.visibility = 'hidden';
+    //     yueXiu.style.visibility = 'hidden';
+    //     huangPu.style.visibility = 'hidden';
+    //     baiYun.style.visibility = 'hidden';
+
+    //     dLegend.style.visibility = 'hidden';
+
+    // });
+
+    map.on('mouseenter', 'places', (e) => {
+        // Change the cursor style as a UI indicator.
+        map.getCanvas().style.cursor = 'pointer';
+        
+        // Copy coordinates array.
+        const coordinates = e.features[0].geometry.coordinates.slice();
+        const description = e.features[0].properties.description;
+        
+        // Ensure that if the map is zoomed out such that multiple
+        // copies of the feature are visible, the popup appears
+        // over the copy being pointed to.
+        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        }
+        
+        // Populate the popup and set its coordinates
+        // based on the feature found.
+        popup.setLngLat(coordinates).setHTML(description).addTo(map);
+        });
+        
+        map.on('mouseleave', 'places', () => {
+        map.getCanvas().style.cursor = '';
+        popup.remove();
+        });
+});
+
+map.on("click", function(e) {
+        var features = map.queryRenderedFeatures(e.point, { layers: ["places"] });
+        if (features.length) {
+            pro_name = features[0].properties.name;
+            if(pro_name == "TIT") {window.location.href = 'TIT.html#target-TIT';}
+            if(pro_name == 'Yongqing') {window.location.href = 'TIT.html#target-yq';}
+            if(pro_name == 'Liede') {window.location.href = 'TIT.html#target-ld';}
+        } 
+    });
+</script>
+
+<script type="text/javascript">
+var ch = document.getElementById('ch_chart');
+                var myChart = echarts.init(ch, null, {
+                  renderer: 'canvas',
+                  useDirtyRect: false
+                });
+                
+                var option;
+                var app = {};
+
+                var data = [
+                    {
+                    name: 'A',
+                    itemStyle: {color: '#da0d68'},
+                    children: [
+                        {
+                            name: 'a1',
+                            value: 7,
+                            itemStyle: {color: '#e0719c'}
+                        },
+                        {
+                            name: 'a2',
+                            value: 2,
+                            itemStyle: {color: '#b47e93'}
+                        },
+                        {
+                            name: 'a3',
+                            value: 8,
+                            itemStyle: {color: '#d97786'}
+                        },
+                        {
+                            name: 'a4',
+                            value: 22,
+                            itemStyle: {color: '#dd596d'}
+                        },
+                        {
+                            name: 'a5',
+                            value: 3,
+                            itemStyle: {color: '#b34858'}
+                        },
+                        {
+                            name: 'a8',
+                            value: 5,
+                            itemStyle: {color: '#cd5555'}
+                        },
+                    ]
+                },
+
+                {
+                    name: 'B',
+                    itemStyle: {color: '#0aa3b5'},
+                    children: [
+                        {
+                            name: 'b1',
+                            value: 40,
+                            itemStyle: {color: '#76c0cb'}
+                        },
+                        {
+                            name: 'b2',
+                            value: 1,
+                            itemStyle: {color: '#4e9eaa'}
+                        }
+                    ]
+                },
+
+                {
+                    name: 'C',
+                    itemStyle: {color: '#187a2f'},
+                    children: [
+                        {
+                            name: 'c1',
+                            value: 8,
+                            itemStyle: {color: '#518d61'}
+                        },
+                        {
+                            name: 'c2',
+                            value: 1,
+                            itemStyle: {color: '#56ca75'}
+                        },
+                        {
+                            name: 'c3',
+                            value: 3,
+                            itemStyle: {color: '#37d361'}
+                        },
+                        {
+                            name: 'c6',
+                            value: 9,
+                            itemStyle: {color: '#49a161'}
+                        }
+                    ]
+                }
+            ];
+
+            option = {
+                title: {
+                    text: 'Proposed Industry Classification',
+                    textStyle: {
+                    fontSize: 14,
+                    color: '#000'
+                    },
+                    left: 'center'
+                },
+                series: {
+                    type: 'sunburst',
+                    data: data,
+                    radius: [0, '95%'],
+                    sort: undefined,
+                    emphasis: {
+                    focus: 'ancestor'
+                    },
+                    levels: [
+                    {},
+                    {
+                        r0: '15%',
+                        r: '45%',
+                        itemStyle: {
+                        borderWidth: 2
+                        },
+                        label: {
+                        rotate: 'tangential'
+                        }
+                    },
+                    {
+                        r0: '45%',
+                        r: '70%',
+                        label: {
+                        align: 'right'
+                        }
+                    }
+                    ]
+                }
+                };
+
+            option && myChart.setOption(option);
+            window.addEventListener('resize', myChart.resize);
+
+
+</script>
+
+<script type="text/javascript">
+    var ns = document.getElementById('ns_chart');
+                    var myChart = echarts.init(ns, null, {
+                      renderer: 'canvas',
+                      useDirtyRect: false
+                    });
+                    
+                    var option;
+                    var app = {};
+    
+                    var data = [
+                        {
+                        name: 'A',
+                        itemStyle: {color: '#da0d68'},
+                        children: [
+                            {
+                                name: 'a1',
+                                value: 1,
+                                itemStyle: {color: '#e0719c'}
+                            },
+                            {
+                                name: 'a3',
+                                value: 1,
+                                itemStyle: {color: '#d97786'}
+                            }
+                        ]
+                    },
+    
+                    {
+                        name: 'B',
+                        itemStyle: {color: '#0aa3b5'},
+                        children: [
+                            {
+                                name: 'b1',
+                                value: 2,
+                                itemStyle: {color: '#76c0cb'}
+                            },
+                            {
+                                name: 'b2',
+                                value: 1,
+                                itemStyle: {color: '#4e9eaa'}
+                            }
+                        ]
+                    },
+    
+                    {
+                        name: 'C',
+                        itemStyle: {color: '#187a2f'},
+                        children: [
+                            {
+                                name: 'c1',
+                                value: 4,
+                                itemStyle: {color: '#518d61'}
+                            },
+                            {
+                                name: 'c2',
+                                value: 1,
+                                itemStyle: {color: '#56ca75'}
+                            }
+                        ]
+                    }
+                ];
+    
+                option = {
+                    title: {
+                        text: 'Proposed Industry Classification',
+                        textStyle: {
+                        fontSize: 14,
+                        color: '#000'
+                        },
+                        left: 'center'
+                    },
+                    series: {
+                        type: 'sunburst',
+                        data: data,
+                        radius: [0, '95%'],
+                        sort: undefined,
+                        emphasis: {
+                        focus: 'ancestor'
+                        },
+                        levels: [
+                        {},
+                        {
+                            r0: '15%',
+                            r: '45%',
+                            itemStyle: {
+                            borderWidth: 2
+                            },
+                            label: {
+                            rotate: 'tangential'
+                            }
+                        },
+                        {
+                            r0: '45%',
+                            r: '70%',
+                            label: {
+                            align: 'right'
+                            }
+                        }
+                        ]
+                    }
+                    };
+    
+                option && myChart.setOption(option);
+                window.addEventListener('resize', myChart.resize);
+    
+    
+    </script>
+ 
+ <script type="text/javascript">
+    var hd = document.getElementById('hd_chart');
+                    var myChart = echarts.init(hd, null, {
+                      renderer: 'canvas',
+                      useDirtyRect: false
+                    });
+                    
+                    var option;
+                    var app = {};
+    
+                    var data = [
+                        {
+                        name: 'A',
+                        itemStyle: {color: '#da0d68'},
+                        children: [
+                            {
+                                name: 'a1',
+                                value: 1,
+                                itemStyle: {color: '#e0719c'}
+                            },
+                            {
+                                name: 'a2',
+                                value: 5,
+                                itemStyle: {color: '#b47e93'}
+                            },
+                            {
+                                name: 'a4',
+                                value: 15,
+                                itemStyle: {color: '#dd596d'}
+                            },
+                            {
+                                name: 'a5',
+                                value: 14,
+                                itemStyle: {color: '#b34858'}
+                            }
+                        ]
+                    },
+    
+                    {
+                        name: 'B',
+                        itemStyle: {color: '#0aa3b5'},
+                        children: [
+                            {
+                                name: 'b1',
+                                value: 25,
+                                itemStyle: {color: '#76c0cb'}
+                            }
+                        ]
+                    },
+    
+                    {
+                        name: 'C',
+                        itemStyle: {color: '#187a2f'},
+                        children: [
+                            {
+                                name: 'c4',
+                                value: 5,
+                                itemStyle: {color: '#9ee4b0'}
+                            },
+                            {
+                                name: 'c1',
+                                value: 19,
+                                itemStyle: {color: '#518d61'}
+                            },
+                            {
+                                name: 'c6',
+                                value: 5,
+                                itemStyle: {color: '#49a161'}
+                            }
+                        ]
+                    }
+                ];
+    
+                option = {
+                    title: {
+                        text: 'Proposed Industry Classification',
+                        textStyle: {
+                        fontSize: 14,
+                        color: '#000'
+                        },
+                        left: 'center'
+                    },
+                    series: {
+                        type: 'sunburst',
+                        data: data,
+                        radius: [0, '95%'],
+                        sort: undefined,
+                        emphasis: {
+                        focus: 'ancestor'
+                        },
+                        levels: [
+                        {},
+                        {
+                            r0: '15%',
+                            r: '45%',
+                            itemStyle: {
+                            borderWidth: 2
+                            },
+                            label: {
+                            rotate: 'tangential'
+                            }
+                        },
+                        {
+                            r0: '45%',
+                            r: '70%',
+                            label: {
+                            align: 'right'
+                            }
+                        }
+                        ]
+                    }
+                    };
+    
+                option && myChart.setOption(option);
+                window.addEventListener('resize', myChart.resize);
+    
+    
+    </script>
+
+<script type="text/javascript">
+    var hz = document.getElementById('hz_chart');
+                    var myChart = echarts.init(hz, null, {
+                      renderer: 'canvas',
+                      useDirtyRect: false
+                    });
+                    
+                    var option;
+                    var app = {};
+    
+                    var data = [
+                        {
+                        name: 'A',
+                        itemStyle: {color: '#da0d68'},
+                        children: [
+                            {
+                                name: 'a4',
+                                value: 3,
+                                itemStyle: {color: '#dd596d'}
+                            },
+                            {
+                                name: 'a6',
+                                value: 1,
+                                itemStyle: {color: '#cb5192'}
+                            },
+                            {
+                                name: 'a5',
+                                value: 3,
+                                itemStyle: {color: '#b34858'}
+                            },
+                            {
+                                name: 'a7',
+                                value: 1,
+                                itemStyle: {color: '#bf8ea4'}
+                            }
+                        ]
+                    },
+    
+                    {
+                        name: 'B',
+                        itemStyle: {color: '#0aa3b5'},
+                        children: [
+                            {
+                                name: 'b1',
+                                value: 10,
+                                itemStyle: {color: '#76c0cb'}
+                            },
+                            {
+                                name: 'b3',
+                                value: 2,
+                                itemStyle: {color: '#66939a'}
+                            }
+                        ]
+                    },
+    
+                    {
+                        name: 'C',
+                        itemStyle: {color: '#187a2f'},
+                        children: [
+                            {
+                                name: 'c3',
+                                value: 4,
+                                itemStyle: {color: '#37d361'}
+                            }
+                        ]
+                    }
+                ];
+    
+                option = {
+                    title: {
+                        text: 'Proposed Industry Classification',
+                        textStyle: {
+                        fontSize: 14,
+                        color: '#000'
+                        },
+                        left: 'center'
+                    },
+                    series: {
+                        type: 'sunburst',
+                        data: data,
+                        radius: [0, '95%'],
+                        sort: undefined,
+                        emphasis: {
+                        focus: 'ancestor'
+                        },
+                        levels: [
+                        {},
+                        {
+                            r0: '15%',
+                            r: '45%',
+                            itemStyle: {
+                            borderWidth: 2
+                            },
+                            label: {
+                            rotate: 'tangential'
+                            }
+                        },
+                        {
+                            r0: '45%',
+                            r: '70%',
+                            label: {
+                            align: 'right'
+                            }
+                        }
+                        ]
+                    }
+                    };
+    
+                option && myChart.setOption(option);
+                window.addEventListener('resize', myChart.resize);
+    
+    
+    </script>
+
+<script type="text/javascript">
+    var py = document.getElementById('py_chart');
+                    var myChart = echarts.init(py, null, {
+                      renderer: 'canvas',
+                      useDirtyRect: false
+                    });
+                    
+                    var option;
+                    var app = {};
+    
+                    var data = [
+                        {
+                        name: 'A',
+                        itemStyle: {color: '#da0d68'},
+                        children: [
+                            {
+                                name: 'a1',
+                                value: 1,
+                                itemStyle: {color: '#e0719c'}
+                            },
+                            {
+                                name: 'a2',
+                                value: 1,
+                                itemStyle: {color: '#b47e93'}
+                            },
+                            {
+                                name: 'a4',
+                                value: 34,
+                                itemStyle: {color: '#dd596d'}
+                            },
+                        ]
+                    },
+    
+                    {
+                        name: 'B',
+                        itemStyle: {color: '#0aa3b5'},
+                        children: [
+                            {
+                                name: 'b1',
+                                value: 38,
+                                itemStyle: {color: '#76c0cb'}
+                            },
+                            {
+                                name: 'b4',
+                                value: 1,
+                                itemStyle: {color: '#67a4bc'}
+                            },
+                            {
+                                name: 'b6',
+                                value: 4,
+                                itemStyle: {color: '#41858f'}
+                            },
+                            {
+                                name: 'b5',
+                                value: 1,
+                                itemStyle: {color: '#337187'}
+                            }
+                        ]
+                    },
+    
+                    {
+                        name: 'C',
+                        itemStyle: {color: '#187a2f'},
+                        children: [
+                            {
+                                name: 'c4',
+                                value: 1,
+                                itemStyle: {color: '#9ee4b0'}
+                            },
+
+                            {
+                                name: 'c1',
+                                value: 3,
+                                itemStyle: {color: '#518d61'}
+                            },
+                            {
+                                name: 'c2',
+                                value: 4,
+                                itemStyle: {color: '#56ca75'}
+                            }
+                        ]
+                    }
+                ];
+    
+                option = {
+                    title: {
+                        text: 'Proposed Industry Classification',
+                        textStyle: {
+                        fontSize: 14,
+                        color: '#000'
+                        },
+                        left: 'center'
+                    },
+                    series: {
+                        type: 'sunburst',
+                        data: data,
+                        radius: [0, '95%'],
+                        sort: undefined,
+                        emphasis: {
+                        focus: 'ancestor'
+                        },
+                        levels: [
+                        {},
+                        {
+                            r0: '15%',
+                            r: '45%',
+                            itemStyle: {
+                            borderWidth: 2
+                            },
+                            label: {
+                            rotate: 'tangential'
+                            }
+                        },
+                        {
+                            r0: '45%',
+                            r: '70%',
+                            label: {
+                            align: 'right'
+                            }
+                        }
+                        ]
+                    }
+                    };
+    
+                option && myChart.setOption(option);
+                window.addEventListener('resize', myChart.resize);
+    
+    
+    </script>
+
+<script type="text/javascript">
+    var lw = document.getElementById('lw_chart');
+                    var myChart = echarts.init(lw, null, {
+                      renderer: 'canvas',
+                      useDirtyRect: false
+                    });
+                    
+                    var option;
+                    var app = {};
+    
+                    var data = [
+                        {
+                        name: 'A',
+                        itemStyle: {color: '#da0d68'},
+                        children: [
+                            {
+                                name: 'a3',
+                                value: 1,
+                                itemStyle: {color: '#d97786'}
+                            },
+                            {
+                                name: 'a4',
+                                value: 19,
+                                itemStyle: {color: '#dd596d'}
+                            },
+                            {
+                                name: 'a6',
+                                value: 1,
+                                itemStyle: {color: '#cb5192'}
+                            }
+                        ]
+                    },
+    
+                    {
+                        name: 'B',
+                        itemStyle: {color: '#0aa3b5'},
+                        children: [
+                            {
+                                name: 'b1',
+                                value: 7,
+                                itemStyle: {color: '#76c0cb'}
+                            },
+                            {
+                                name: 'b3',
+                                value: 1,
+                                itemStyle: {color: '#66939a'}
+                            }
+                        ]
+                    }
+    
+                ];
+    
+                option = {
+                    title: {
+                        text: 'Proposed Industry Classification',
+                        textStyle: {
+                        fontSize: 14,
+                        color: '#000'
+                        },
+                        left: 'center'
+                    },
+                    series: {
+                        type: 'sunburst',
+                        data: data,
+                        radius: [0, '95%'],
+                        sort: undefined,
+                        emphasis: {
+                        focus: 'ancestor'
+                        },
+                        levels: [
+                        {},
+                        {
+                            r0: '15%',
+                            r: '45%',
+                            itemStyle: {
+                            borderWidth: 2
+                            },
+                            label: {
+                            rotate: 'tangential'
+                            }
+                        },
+                        {
+                            r0: '45%',
+                            r: '70%',
+                            label: {
+                            align: 'right'
+                            }
+                        }
+                        ]
+                    }
+                    };
+    
+                option && myChart.setOption(option);
+                window.addEventListener('resize', myChart.resize);
+    
+    
+    </script>
+
+<script type="text/javascript">
+    var zc = document.getElementById('zc_chart');
+                    var myChart = echarts.init(zc, null, {
+                      renderer: 'canvas',
+                      useDirtyRect: false
+                    });
+                    
+                    var option;
+                    var app = {};
+    
+                    var data = [
+                        {
+                        name: 'A',
+                        itemStyle: {color: '#da0d68'},
+                        children: [
+                            {
+                                name: 'a1',
+                                value: 1,
+                                itemStyle: {color: '#e0719c'}
+                            },
+                            {
+                                name: 'a2',
+                                value: 1,
+                                itemStyle: {color: '#b47e93'}
+                            },
+                            {
+                                name: 'a3',
+                                value: 6,
+                                itemStyle: {color: '#d97786'}
+                            },
+                            {
+                                name: 'a4',
+                                value: 9,
+                                itemStyle: {color: '#dd596d'}
+                            },
+                            {
+                                name: 'a5',
+                                value: 1,
+                                itemStyle: {color: '#b34858'}
+                            }
+                        ]
+                    },
+    
+                    {
+                        name: 'B',
+                        itemStyle: {color: '#0aa3b5'},
+                        children: [
+                            {
+                                name: 'b1',
+                                value: 10,
+                                itemStyle: {color: '#76c0cb'}
+                            }
+                        ]
+                    },
+    
+                    {
+                        name: 'C',
+                        itemStyle: {color: '#187a2f'},
+                        children: [
+                            {
+                                name: 'c2',
+                                value: 6,
+                                itemStyle: {color: '#56ca75'}
+                            }
+                        ]
+                    }
+                ];
+    
+                option = {
+                    title: {
+                        text: 'Proposed Industry Classification',
+                        textStyle: {
+                        fontSize: 14,
+                        color: '#000'
+                        },
+                        left: 'center'
+                    },
+                    series: {
+                        type: 'sunburst',
+                        data: data,
+                        radius: [0, '95%'],
+                        sort: undefined,
+                        emphasis: {
+                        focus: 'ancestor'
+                        },
+                        levels: [
+                        {},
+                        {
+                            r0: '15%',
+                            r: '45%',
+                            itemStyle: {
+                            borderWidth: 2
+                            },
+                            label: {
+                            rotate: 'tangential'
+                            }
+                        },
+                        {
+                            r0: '45%',
+                            r: '70%',
+                            label: {
+                            align: 'right'
+                            }
+                        }
+                        ]
+                    }
+                    };
+    
+                option && myChart.setOption(option);
+                window.addEventListener('resize', myChart.resize);
+    
+    
+    </script>
+
+<script type="text/javascript">
+    var th = document.getElementById('th_chart');
+                    var myChart = echarts.init(th, null, {
+                      renderer: 'canvas',
+                      useDirtyRect: false
+                    });
+                    
+                    var option;
+                    var app = {};
+    
+                    var data = [
+                        {
+                        name: 'A',
+                        itemStyle: {color: '#da0d68'},
+                        children: [
+                            {
+                                name: 'a1',
+                                value: 4,
+                                itemStyle: {color: '#e0719c'}
+                            },
+                            {
+                                name: 'a4',
+                                value: 2,
+                                itemStyle: {color: '#dd596d'}
+                            },
+
+                            {
+                                name: 'a6',
+                                value: 4,
+                                itemStyle: {color: '#cb5192'}
+                            },
+                            {
+                                name: 'a8',
+                                value: 1,
+                                itemStyle: {color: '#cd5555'}
+                            }
+                        ]
+                    },
+    
+                    {
+                        name: 'B',
+                        itemStyle: {color: '#0aa3b5'},
+                        children: [
+                            {
+                                name: 'b1',
+                                value: 19,
+                                itemStyle: {color: '#76c0cb'}
+                            }
+                        ]
+                    },
+    
+                ];
+    
+                option = {
+                    title: {
+                        text: 'Proposed Industry Classification',
+                        textStyle: {
+                        fontSize: 14,
+                        color: '#000'
+                        },
+                        left: 'center'
+                    },
+                    series: {
+                        type: 'sunburst',
+                        data: data,
+                        radius: [0, '95%'],
+                        sort: undefined,
+                        emphasis: {
+                        focus: 'ancestor'
+                        },
+                        levels: [
+                        {},
+                        {
+                            r0: '15%',
+                            r: '45%',
+                            itemStyle: {
+                            borderWidth: 2
+                            },
+                            label: {
+                            rotate: 'tangential'
+                            }
+                        },
+                        {
+                            r0: '45%',
+                            r: '70%',
+                            label: {
+                            align: 'right'
+                            }
+                        }
+                        ]
+                    }
+                    };
+    
+                option && myChart.setOption(option);
+                window.addEventListener('resize', myChart.resize);
+    
+    
+    </script>
+
+<script type="text/javascript">
+    var yx = document.getElementById('yx_chart');
+                    var myChart = echarts.init(yx, null, {
+                      renderer: 'canvas',
+                      useDirtyRect: false
+                    });
+                    
+                    var option;
+                    var app = {};
+    
+                    var data = [
+                        {
+                        name: 'A',
+                        itemStyle: {color: '#da0d68'},
+                        children: [
+                            {
+                                name: 'a1',
+                                value: 1,
+                                itemStyle: {color: '#e0719c'}
+                            },
+                            {
+                                name: 'a4',
+                                value: 2,
+                                itemStyle: {color: '#dd596d'}
+                            }
+                        ]
+                    },
+    
+                    {
+                        name: 'B',
+                        itemStyle: {color: '#0aa3b5'},
+                        children: [
+                            {
+                                name: 'b1',
+                                value: 1,
+                                itemStyle: {color: '#76c0cb'}
+                            }
+                        ]
+                    },
+    
+                ];
+    
+                option = {
+                    title: {
+                        text: 'Proposed Industry Classification',
+                        textStyle: {
+                        fontSize: 14,
+                        color: '#000'
+                        },
+                        left: 'center'
+                    },
+                    series: {
+                        type: 'sunburst',
+                        data: data,
+                        radius: [0, '95%'],
+                        sort: undefined,
+                        emphasis: {
+                        focus: 'ancestor'
+                        },
+                        levels: [
+                        {},
+                        {
+                            r0: '15%',
+                            r: '45%',
+                            itemStyle: {
+                            borderWidth: 2
+                            },
+                            label: {
+                            rotate: 'tangential'
+                            }
+                        },
+                        {
+                            r0: '45%',
+                            r: '70%',
+                            label: {
+                            align: 'right'
+                            }
+                        }
+                        ]
+                    }
+                    };
+    
+                option && myChart.setOption(option);
+                window.addEventListener('resize', myChart.resize);
+    
+    
+    </script>
+
+<script type="text/javascript">
+    var hp = document.getElementById('hp_chart');
+                    var myChart = echarts.init(hp, null, {
+                      renderer: 'canvas',
+                      useDirtyRect: false
+                    });
+                    
+                    var option;
+                    var app = {};
+    
+                    var data = [
+                        {
+                        name: 'A',
+                        itemStyle: {color: '#da0d68'},
+                        children: [
+                            {
+                                name: 'a3',
+                                value: 1,
+                                itemStyle: {color: '#d97786'}
+                            },
+                            {
+                                name: 'a4',
+                                value: 22,
+                                itemStyle: {color: '#dd596d'}
+                            },
+                            {
+                                name: 'a6',
+                                value: 1,
+                                itemStyle: {color: '#cb5192'}
+                            }
+                        ]
+                    },
+    
+                    {
+                        name: 'B',
+                        itemStyle: {color: '#0aa3b5'},
+                        children: [
+                            {
+                                name: 'b1',
+                                value: 10,
+                                itemStyle: {color: '#76c0cb'}
+                            },
+                            {
+                                name: 'b4',
+                                value: 2,
+                                itemStyle: {color: '#67a4bc'}
+                            },
+                            {
+                                name: 'b5',
+                                value: 13,
+                                itemStyle: {color: '#337187'}
+                            }
+                        ]
+                    },
+    
+                    {
+                        name: 'C',
+                        itemStyle: {color: '#187a2f'},
+                        children: [
+                            {
+                                name: 'c1',
+                                value: 2,
+                                itemStyle: {color: '#518d61'}
+                            },
+                            {
+                                name: 'c5',
+                                value: 3,
+                                itemStyle: {color: '#6bb156'}
+                            }
+                        ]
+                    }
+                ];
+    
+                option = {
+                    title: {
+                        text: 'Proposed Industry Classification',
+                        textStyle: {
+                        fontSize: 14,
+                        color: '#000'
+                        },
+                        left: 'center'
+                    },
+                    series: {
+                        type: 'sunburst',
+                        data: data,
+                        radius: [0, '95%'],
+                        sort: undefined,
+                        emphasis: {
+                        focus: 'ancestor'
+                        },
+                        levels: [
+                        {},
+                        {
+                            r0: '15%',
+                            r: '45%',
+                            itemStyle: {
+                            borderWidth: 2
+                            },
+                            label: {
+                            rotate: 'tangential'
+                            }
+                        },
+                        {
+                            r0: '45%',
+                            r: '70%',
+                            label: {
+                            align: 'right'
+                            }
+                        }
+                        ]
+                    }
+                    };
+    
+                option && myChart.setOption(option);
+                window.addEventListener('resize', myChart.resize);
+    
+    
+    </script>
+
+<script type="text/javascript">
+    var by = document.getElementById('by_chart');
+                    var myChart = echarts.init(by, null, {
+                      renderer: 'canvas',
+                      useDirtyRect: false
+                    });
+                    
+                    var option;
+                    var app = {};
+    
+                    var data = [
+                        {
+                        name: 'A',
+                        itemStyle: {color: '#da0d68'},
+                        children: [
+                            {
+                                name: 'a2',
+                                value: 5,
+                                itemStyle: {color: '#b47e93'}
+                            },
+                            {
+                                name: 'a3',
+                                value: 1,
+                                itemStyle: {color: '#d97786'}
+                            },
+                            {
+                                name: 'a4',
+                                value: 29,
+                                itemStyle: {color: '#dd596d'}
+                            },
+                            {
+                                name: 'a6',
+                                value: 1,
+                                itemStyle: {color: '#cb5192'}
+                            }
+                        ]
+                    },
+    
+                    {
+                        name: 'B',
+                        itemStyle: {color: '#0aa3b5'},
+                        children: [
+                            {
+                                name: 'b1',
+                                value: 20,
+                                itemStyle: {color: '#76c0cb'}
+                            },
+                            {
+                                name: 'b3',
+                                value: 3,
+                                itemStyle: {color: '#66939a'}
+                            }
+                        ]
+                    },
+    
+                    {
+                        name: 'C',
+                        itemStyle: {color: '#187a2f'},
+                        children: [
+                            {
+                                name: 'c4',
+                                value: 2,
+                                itemStyle: {color: '#9ee4b0'}
+                            },
+
+                            {
+                                name: 'c1',
+                                value: 4,
+                                itemStyle: {color: '#518d61'}
+                            }
+                        ]
+                    }
+                ];
+    
+                option = {
+                    title: {
+                        text: 'Proposed Industry Classification',
+                        textStyle: {
+                        fontSize: 14,
+                        color: '#000'
+                        },
+                        left: 'center'
+                    },
+                    series: {
+                        type: 'sunburst',
+                        data: data,
+                        radius: [0, '95%'],
+                        sort: undefined,
+                        emphasis: {
+                        focus: 'ancestor'
+                        },
+                        levels: [
+                        {},
+                        {
+                            r0: '15%',
+                            r: '45%',
+                            itemStyle: {
+                            borderWidth: 2
+                            },
+                            label: {
+                            rotate: 'tangential'
+                            }
+                        },
+                        {
+                            r0: '45%',
+                            r: '70%',
+                            label: {
+                            align: 'right'
+                            }
+                        }
+                        ]
+                    }
+                    };
+    
+                option && myChart.setOption(option);
+                window.addEventListener('resize', myChart.resize);
+    
+    
+    </script>
+    
+</body>
+</html>

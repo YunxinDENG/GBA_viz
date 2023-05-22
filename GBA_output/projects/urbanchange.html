@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Urban Change</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .legend-row {
+            cursor: pointer;
+        }
+
+        #pie-chart-container {
+            position: relative;
+            width: 300px;
+            height: 180px;
+            margin: 0 auto;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+
+
+        .button-container {
+            text-align: center;
+        }
+
+
+        .map-overlay {
+            font: 10px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+            position: absolute;
+            width: 25%;
+            top: 0;
+            right: 0;
+            padding: 10px;
+            opacity: 85%
+        }
+
+        .map-overlay .map-overlay-inner {
+            background-color: #fff;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.20);
+            border-radius: 3px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .map-overlay table {
+            border: none;
+            width: 100%;
+
+        }
+
+        .map-overlay h1 {
+            text-align: center;
+        }
+
+        .map-overlay h2 {
+            line-height: 24px;
+            display: block;
+            margin: 0 0 10px;
+        }
+
+        .map-overlay input {
+            display: inline;
+            vertical-align: middle;
+            margin: 5px;
+            padding: 0;
+        }
+
+        .map-overlay p.credit {
+            margin: 0px 0 0 0;
+            padding: 0;
+        }
+
+        .map-overlay2 {
+            font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+            position: absolute;
+            width: 25%;
+            top: 30%;
+            right: 0;
+            padding: 10px;
+            opacity: 85%;
+        }
+
+        .map-overlay .map-overlay-inner2 {
+            background-color: #fff;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.20);
+            border-radius: 3px;
+            padding: 10px;
+            /* margin-bottom: 10px; */
+        }
+
+        .map-overlay .map-overlay-inner3 {
+            background-color: #fff;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.20);
+            border-radius: 3px;
+            padding: 10px;
+            /* margin-bottom: 10px; */
+        }
+
+        .map-overlay2 table {
+            border: none;
+            width: 100%;
+        }
+
+        .map-overlay2 h2 {
+            line-height: 24px;
+            display: block;
+            margin: 0 0 10px;
+        }
+
+        .blink {
+            color: rgb(80, 160, 180);
+            font-size: 14px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id='map'></div>
+    <div class='map-overlay'>
+        <div class="map-overlay-inner">
+            <h1> &nbsp;&nbsp;Great Bay Area<br> Urban landuse Conversion<br>(2010-2020)</h1>
+
+        </div>
+
+        <div class="map-overlay-inner2">
+            <div id='legend'>
+            </div>
+
+        </div>
+        <div class="map-overlay-inner3">
+            <div id="pie-chart-container">
+                <svg id="pie-chart" width="300" height="200"></svg>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1Ijoia29yZW50aW5jaGVuIiwiYSI6ImNsZGJsN3J6MTAxb2UzcHF3aW5zOWpjZjYifQ.nooZmq1UgUTWIZ2GFIFjww';
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/korentinchen/cleubx2ku000501o9orjhj4gn', // Set the initial style
+            center: [114.21, 23.12911], // Set the initial center
+            zoom: 6.7, // Set the initial zoom level
+            pitch: 0
+        });
+
+        // Create an array of the available data years
+
+        // colors and values for 'gdp2D' layer
+        var gdp2DGrades = ['Built-up Area', 'Industrial Area', 'Industrial Area <br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-> Built-up Area', 'Built-up Area <br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp -> Industrial Area'];
+        var gdp2DColors = ['#FEE8B0', '#7C9070', '#F97B22', '#6C9BCF'];
+
+
+        var legend = document.getElementById('legend');
+
+        // function to add one row in the legend
+        function addLegendRow(colors, grades, label) {
+            var labelElement = document.createElement('strong');
+            labelElement.innerHTML = label;
+            labelElement.style.marginLeft = '10px';
+            legend.appendChild(labelElement);
+
+            for (var i = 0; i < grades.length; i++) {
+                var row = document.createElement('div');
+                row.style.display = 'block';
+                row.className = 'legend-row';
+
+                var box = document.createElement('div');
+                box.style.backgroundColor = colors[i];
+                box.style.marginLeft = '10px';
+                box.style.width = '60px';
+                box.style.height = '20px';
+                box.style.display = 'inline-block';
+                row.appendChild(box);
+
+                var value = document.createElement('span');
+                value.innerHTML = grades[i];
+                value.style.marginLeft = '5px';
+                value.style.marginRight = '5px';
+                row.appendChild(value);
+
+                legend.appendChild(row);
+                // Add a line break after each row
+
+            }
+        }
+
+        addLegendRow(gdp2DColors, gdp2DGrades, 'Landuse Type');
+
+
+
+
+
+
+
+
+        map.on('load', function () {
+
+            document.querySelectorAll('.legend-row').forEach((row, index) => {
+                row.addEventListener('click', () => {
+                    // Get the visibility of the current layer
+                    const layerVisibility = map.getLayoutProperty('my-data-layer' + (index + 1), 'visibility');
+
+                    // Toggle the visibility of a layer according to its current visibility
+                    if (layerVisibility === 'visible') {
+                        map.setLayoutProperty('my-data-layer' + (index + 1), 'visibility', 'none');
+                    } else {
+                        map.setLayoutProperty('my-data-layer' + (index + 1), 'visibility', 'visible');
+                    }
+                });
+            });
+            // Set global light properties which influence 3D layer shadows
+            map.setLight({ color: "#fff", intensity: 0.35, position: [1.15, 210, 30] });
+
+            // Add standard navigation control
+            var nav = new mapboxgl.NavigationControl();
+            map.addControl(nav, 'top-left');
+
+
+            // Add a layer for the shapefile
+            map.addLayer({
+                id: 'my-data-layer4',
+                type: 'fill',
+                source: {
+                    type: 'vector',
+                    url: 'mapbox://korentinchen.976nitup'
+                },
+                'source-layer': 'test5-1rsg3m',
+                'layout': {
+                    'visibility': 'visible'
+                },
+                paint: {
+                    'fill-color': [
+                        'match',
+                        ['get', 'gridcode'],
+                        -1, '#6C9BCF',
+                        'rgba(0, 0, 0, 0)' // set other values to transparent
+                    ],
+                    'fill-opacity': 0.95
+                }
+            });
+
+            map.addLayer({
+                id: 'my-data-layer1',
+                type: 'fill',
+                source: {
+                    type: 'vector',
+                    url: 'mapbox://korentinchen.976nitup'
+                },
+                'source-layer': 'test5-1rsg3m',
+                'layout': {
+                    'visibility': 'visible'
+                },
+                paint: {
+                    'fill-color': [
+                    'match',
+                        ['get', 'gridcode'],
+
+                        0, '#FEE8B0',
+
+                        'rgba(0, 0, 0, 0)' 
+
+                    ],
+                    'fill-opacity': 0.95
+                }
+            });
+            map.addLayer({
+                id: 'my-data-layer2',
+                type: 'fill',
+                source: {
+                    type: 'vector',
+                    url: 'mapbox://korentinchen.976nitup'
+                },
+                'source-layer': 'test5-1rsg3m',
+                'layout': {
+                    'visibility': 'visible'
+                },
+                paint: {
+                    'fill-color': [
+                    'match',
+                        ['get', 'gridcode'],
+
+                        1, '#7C9070',
+                        'rgba(0, 0, 0, 0)' 
+
+                    ],
+                    'fill-opacity': 0.95
+                }
+            });
+            map.addLayer({
+                id: 'my-data-layer3',
+                type: 'fill',
+                source: {
+                    type: 'vector',
+                    url: 'mapbox://korentinchen.976nitup'
+                },
+                'source-layer': 'test5-1rsg3m',
+                'layout': {
+                    'visibility': 'visible'
+                },
+                paint: {
+                    'fill-color': [
+                    'match',
+                        ['get', 'gridcode'],
+
+                        2, '#F97B22',
+
+                        'rgba(0, 0, 0, 0)' 
+                    ],
+                    'fill-opacity': 0.95
+                }
+            });
+
+            map.addLayer({
+                id: 'line',
+                type: 'line',
+                source: {
+                    type: 'vector',
+                    url: 'mapbox://korentinchen.8rd4sezf'
+                },
+                'source-layer': 'gdppop-7z3mjt',
+                'layout': {
+                    'visibility': 'visible'
+                },
+                paint: {
+                    'line-color': '#A98F8D',
+                    'line-width': 1.5
+                }
+            });
+
+
+
+
+            map.addLayer({
+                'id': 'labels',
+                'type': 'symbol',
+                source: {
+                    type: 'vector',
+                    url: 'mapbox://korentinchen.cjmoerv8' // Your Mapbox tileset Map ID
+                },
+                'source-layer': 'labelpoint-9wiwfk', // name of tilesets
+                'layout': {
+                    'text-field': '{city_1}',
+                    'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
+                    'text-size': 12,
+                    'text-anchor': 'center',
+                    'symbol-avoid-edges': true,
+
+                },
+                'paint': {
+                    'text-color': 'rgba(0,0,0,0.8)',
+                    'text-halo-color': '#CD853F',
+                    'text-halo-width': 0.3
+                }
+            });
+
+            const data = [
+                { gridcode: -1, percentage: 0.0064 },
+                { gridcode: 0, percentage: 0.7403 },
+                { gridcode: 1, percentage: 0.2221 },
+                { gridcode: 2, percentage: 0.0312 },
+            ];
+            var width = 200;
+            var height = 150;
+            var radius = Math.min(width, height) / 2.5;
+
+            var color = d3.scaleOrdinal().domain([-1, 0, 1, 2]).range(["#6C9BCF", "#FEE8B0", "#7C9070", "#F97B22"]);
+
+
+            var pie = d3.pie().value((d) => d.percentage);
+            var data_ready = pie(data);
+
+            var svg = d3.select("#pie-chart").attr("width", width).attr("height", height);
+
+            var g = svg
+                .append("g")
+                .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+            g.selectAll("path")
+                .data(data_ready)
+                .enter()
+                .append("path")
+                .attr("d", d3.arc().innerRadius(0).outerRadius(radius))
+                .attr("fill", (d) => color(d.data.gridcode))
+                .attr("stroke", "white")
+                .style("stroke-width", "2px")
+                .style("opacity", 1);
+
+            g.selectAll("text")
+                .data(data_ready)
+                .enter()
+                .append("text")
+                .text((d) => d.data.percentage > 0.05 ? `${(d.data.percentage * 100).toFixed(1)}%` : '')
+                .attr("transform", (d) => {
+                    const c = d3.arc().innerRadius(0).outerRadius(radius).centroid(d);
+                    return `translate(${c[0]}, ${c[1]})`;
+                })
+                .style("text-anchor", "middle")
+                .style("font-size", "12px");
+
+
+
+
+        });
+    </script>
+</body>
+
+</html>

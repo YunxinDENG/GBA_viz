@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>GDP Distribution</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.js"></script>
+    <style>
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+
+        #slider-container {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            z-index: 1;
+        }
+
+        #slider {
+            width: 100%;
+            -webkit-appearance: none;
+            /* Remove the default appearance for Chrome and Safari */
+            appearance: none;
+            /* Remove the default appearance for Firefox */
+            height: 10px;
+            background: #ddd;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .1s;
+            /* Add transition for Chrome and Safari */
+            transition: opacity .1s;
+        }
+
+        #slider:hover {
+            opacity: 1;
+        }
+
+        #slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            /* Remove the default appearance for Chrome and Safari */
+            width: 20px;
+            height: 20px;
+            background: #4CAF50;
+            cursor: pointer;
+            border-radius: 50%;
+            margin-top: -10px;
+        }
+
+        #slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: #4CAF50;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+        #slider-label {
+            display: block;
+            margin-top: 0;
+            text-align: center;
+        }
+
+        .button-container {
+            text-align: center;
+        }
+
+
+        .map-overlay {
+            font: 10px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+            position: absolute;
+            width: 30%;
+            top: 0;
+            right: 0;
+            padding: 10px;
+            opacity: 85%
+        }
+
+        .map-overlay .map-overlay-inner {
+            background-color: #fff;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.20);
+            border-radius: 3px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .map-overlay table {
+            border: none;
+            width: 100%;
+
+        }
+
+        .map-overlay h1 {
+            text-align: center;
+        }
+
+        .map-overlay h2 {
+            line-height: 24px;
+            display: block;
+            margin: 0 0 10px;
+        }
+
+        .map-overlay input {
+            display: inline;
+            vertical-align: middle;
+            margin: 5px;
+            padding: 0;
+        }
+
+        .map-overlay p.credit {
+            margin: 0px 0 0 0;
+            padding: 0;
+        }
+
+        .map-overlay2 {
+            font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+            position: absolute;
+            width: 30%;
+            top: 30%;
+            right: 0;
+            padding: 10px;
+            opacity: 85%
+        }
+
+        .map-overlay .map-overlay-inner2 {
+            background-color: #fff;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.20);
+            border-radius: 3px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .map-overlay2 table {
+            border: none;
+            width: 100%;
+        }
+
+        .map-overlay2 h2 {
+            line-height: 24px;
+            display: block;
+            margin: 0 0 10px;
+        }
+
+        .blink {
+            color: rgb(80, 160, 180);
+            font-size: 14px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id='map'></div>
+    <div class='map-overlay'>
+        <div class="map-overlay-inner">
+            <h1> &nbsp;&nbsp;Greater Bay Area<br> GDP Distribution (2011-2020)</h1>
+            <table>
+                <tr>
+                    <td>
+                        <div class="button-container">
+                            <input type="radio" name="layers" id="layer1" value="Employment" checked><label>GDP
+                                &nbsp;
+                                &nbsp;</label>
+                            <input type="radio" name="layers" id="layer2" value="Residents"><label>per capita GDP
+                            </label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="range" min="0" max="9" value="0" class="slider" id="slider" step='1'
+                            list='tickmarks'>
+                        <datalist id="tickmarks">
+                            <option value="1" label="2011">
+                            <option value="2" label="2012">
+                            <option value="3" label="2013">
+                            <option value="4" label="2014">
+                            <option value="5" label="2015">
+                            <option value="6" label="2016">
+                            <option value="7" label="2017">
+                            <option value="8" label="2018">
+                            <option value="9" label="2019">
+                            <option value="10" label="2020">
+                        </datalist>
+                    </td>
+                    <td>
+                        <label id="slider-label" for="slider">2011</label>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="map-overlay-inner2">
+            <div id='legend'>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1Ijoia29yZW50aW5jaGVuIiwiYSI6ImNsZGJsN3J6MTAxb2UzcHF3aW5zOWpjZjYifQ.nooZmq1UgUTWIZ2GFIFjww';
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/korentinchen/cleubx2ku000501o9orjhj4gn', // Set the initial style
+            center: [114.3664385, 22.92911], // Set the initial center
+            zoom: 6.8, // Set the initial zoom level
+            pitch: 20
+        });
+
+        // Create an array of the available data years
+
+        var slider = document.getElementById("slider");
+        var sliderLabel = document.getElementById("slider-label");
+        var sliderValue = slider.value;
+        var years = ["2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020"];
+
+
+        slider.addEventListener("input", function (e) {
+            sliderLabel.textContent = years[slider.value];
+            var value = parseInt(slider.value);
+
+        });
+
+        // colors and values for 'gdp2D' layer
+        var gdp2DGrades = ['~15', '15-35', '35-75', '75-120', '120-180'];
+        var gdp2DColors = ['#FFF8DE', '#D6E8DB', '#C1D0B5', '#99A98F', '#395144'];
+
+        // colors and values for 'gdp' layer
+        var gdpGrades = ['~35000', '35000-45000', '45000-60000', '60000-75000', '75000-100000', '100000-150000'];
+        var gdpColors = ['#d6f5ff', '#B0E0E6', '#69cbf5', '#1E90FF', '#2e96dc', '#00479e'];
+
+        var legend = document.getElementById('legend');
+
+
+        // function to add one row in the legend
+        function addLegendRow(colors, grades, label) {
+            var labelElement = document.createElement('strong');
+            labelElement.innerHTML = label;
+            labelElement.style.marginLeft = '10px';
+            legend.appendChild(labelElement);
+
+            for (var i = 0; i < grades.length; i++) {
+                var row = document.createElement('div');
+                row.style.display = 'block';
+
+                var box = document.createElement('div');
+                box.style.backgroundColor = colors[i];
+                box.style.marginLeft = '10px';
+                box.style.width = '60px';
+                box.style.height = '20px';
+                box.style.display = 'inline-block';
+                row.appendChild(box);
+
+                var value = document.createElement('span');
+                value.innerHTML = grades[i];
+                value.style.marginLeft = '5px';
+                value.style.marginRight = '5px';
+                row.appendChild(value);
+
+                legend.appendChild(row);
+                // Add a line break after each row
+
+            }
+        }
+
+
+
+        addLegendRow(gdp2DColors, gdp2DGrades, 'GDP ( Million CNY )');
+
+
+
+
+
+
+
+
+        map.on('load', function () {
+
+
+            // Set global light properties which influence 3D layer shadows
+            map.setLight({ color: "#fff", intensity: 0.35, position: [1.15, 210, 30] });
+
+            // Add standard navigation control
+            var nav = new mapboxgl.NavigationControl();
+            map.addControl(nav, 'top-left');
+
+
+            // Add a layer for the shapefile
+            map.addLayer({
+                id: 'my-data-layer1',
+                type: 'fill-extrusion',
+                source: {
+                    type: 'vector',
+                    url: 'mapbox://korentinchen.8rd4sezf'
+                },
+                'source-layer': 'gdppop-7z3mjt',
+                'layout': {
+                    'visibility': 'visible'
+                },
+                paint: {
+                    'fill-extrusion-color': [
+                        'interpolate',
+                        ['linear'],
+                        ['get', 'GDP2011'],
+                        15000000, '#FFF8DE',
+                        35000000, '#D6E8DB',
+                        75000000, '#C1D0B5',
+                        120000000, '#99A98F',
+                        180000000, '#395144'
+                    ],
+                    'fill-extrusion-height': ['/', ['number', ['get', 'GDP2011'], 2], 2000], // Set the initial column to use
+                    'fill-extrusion-base': 10,
+                    'fill-extrusion-opacity': 0.95,
+                    'fill-extrusion-opacity-transition': {
+                        duration: 1000,
+                        delay: 0
+                    }
+                }
+            });
+
+            map.addLayer({
+                id: 'my-data-layer2',
+                type: 'fill-extrusion',
+                source: {
+                    type: 'vector',
+                    url: 'mapbox://korentinchen.8rd4sezf'
+                },
+                'source-layer': 'gdppop-7z3mjt',
+                'layout': {
+                    'visibility': 'none'
+                },
+                paint: {
+                    'fill-extrusion-color': [
+                        'interpolate',
+                        ['linear'],
+                        ['get', 'GDPA2011'],
+                        35000, '#d6f5ff',
+                        45000, '#B0E0E6',
+                        60000, '#69cbf5',
+                        75000, '#1E90FF',
+                        100000, '#2e96dc',
+                        150000, '#00479e'
+
+                    ],
+                    'fill-extrusion-height': ['/', ['number', ['get', 'GDPA2011'], 2], 2], // Set the initial column to use
+                    'fill-extrusion-base': 10,
+                    'fill-extrusion-opacity': 0.95,
+                    'fill-extrusion-opacity-transition': {
+                        duration: 1000,
+                        delay: 0
+                    }
+                }
+            });
+
+
+
+
+
+            // Add event listener to slider
+            var slider = document.getElementById('slider');
+            slider.addEventListener('input', function (event) {
+                var column = event.target.value == 0 ? 'GDP2011' : event.target.value == 1 ? 'GDP2012' : event.target.value == 2 ? 'GDP2013' : event.target.value == 3 ? 'GDP2014' : event.target.value == 4 ? 'GDP2015' : event.target.value == 5 ? 'GDP2016' : event.target.value == 6 ? 'GDP2017' : event.target.value == 7 ? 'GDP2018' : event.target.value == 8 ? 'GDP2019' : 'GDP2020'; // Get the column name based on the slider value
+                map.setPaintProperty('my-data-layer1', 'fill-extrusion-height', ['/', ['number', ['get', column], 2], 2000]); // Update the fill-extrusion-height property with the column values
+                map.setPaintProperty('my-data-layer1', 'fill-extrusion-color', [
+                    'interpolate',
+                    ['linear'],
+                    ['get', column],
+                    15000000, '#FFF8DE',
+                    35000000, '#D6E8DB',
+                    75000000, '#C1D0B5',
+                    120000000, '#99A98F',
+                    180000000, '#395144'
+                ]);
+
+                var column = event.target.value == 0 ? 'GDPA2011' : event.target.value == 1 ? 'GDPA2012' : event.target.value == 2 ? 'GDPA2013' : event.target.value == 3 ? 'GDPA2014' : event.target.value == 4 ? 'GDPA2015' : event.target.value == 5 ? 'GDPA2016' : event.target.value == 6 ? 'GDPA2017' : event.target.value == 7 ? 'GDPA2018' : event.target.value == 8 ? 'GDPA2019' : 'GDPA2020'; // Get the column name based on the slider value
+                map.setPaintProperty('my-data-layer2', 'fill-extrusion-height', ['/', ['number', ['get', column], 2], 2]); // Update the fill-extrusion-height property with the column values
+                map.setPaintProperty('my-data-layer2', 'fill-extrusion-color', [
+                    'interpolate',
+                    ['linear'],
+                    ['get', column],
+                    35000, '#d6f5ff',
+                    45000, '#B0E0E6',
+                    60000, '#69cbf5',
+                    75000, '#1E90FF',
+                    100000, '#2e96dc',
+                    150000, '#00479e'
+                ]);
+            });
+
+
+
+            //Event listener for layer switch
+            document.getElementById("layer1").addEventListener("click", function () {
+
+                map.setLayoutProperty('my-data-layer1', 'visibility', 'visible');
+                map.setLayoutProperty('my-data-layer2', 'visibility', 'none');
+                legend.innerHTML = '';
+                // 添加新的图例
+                addLegendRow(gdp2DColors, gdp2DGrades, 'GDP ( Million CNY )');
+
+            });
+
+            document.getElementById("layer2").addEventListener("click", function () {
+
+                map.setLayoutProperty('my-data-layer1', 'visibility', 'none');
+                map.setLayoutProperty('my-data-layer2', 'visibility', 'visible');
+                legend.innerHTML = '';
+                // 添加新的图例
+                addLegendRow(gdpColors, gdpGrades, 'per capita GDP ( CNY )');
+
+
+            });
+            map.addLayer({
+                'id': 'labels',
+                'type': 'symbol',
+                source: {
+                    type: 'vector',
+                    url: 'mapbox://korentinchen.cjmoerv8' // Your Mapbox tileset Map ID
+                },
+                'source-layer': 'labelpoint-9wiwfk', // name of tilesets
+                'layout': {
+                    'text-field': '{city_1}',
+                    'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
+                    'text-size': 14,
+                    'text-anchor': 'center',
+                    'symbol-avoid-edges': true,
+
+                },
+                'paint': {
+                    'text-color': 'rgba(0,0,0,0.8)',
+                    'text-halo-color': '#fff',
+                    'text-halo-width': 1
+                }
+            });
+
+
+
+        });
+    </script>
+</body>
+
+</html>

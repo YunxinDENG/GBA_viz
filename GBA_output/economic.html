@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>GBA - economic change</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Roboto:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
+
+
+  <style>
+    #map-frame1 {
+            width: 70%;
+            height: 600px;
+            border: none;
+            margin-top: 40px;
+        }
+    #map-frame2 {
+        width: 70%;
+        height: 600px;
+        border: none;
+        margin-top: 40px;
+    }
+    #map-frame3 {
+        width: 70%;
+        height: 800px;
+        border: none;
+        margin-top: 40px;
+    }
+    #map-frame4 {
+        width: 80%;
+        height: 800px;
+        border: none;
+        margin-top: 40px;
+    }
+    .flourish-embed{
+        text-align: center;
+        width: 100%;
+        margin-top: 20px;
+    }
+    .middleThings{
+            width: 75%;
+            margin-left:15%;
+            margin-right:10%;
+        }
+      .midHeader{
+          background-color:gray;
+          margin-top:50px;
+          margin-bottom:10px;
+          text-align: center;
+          color:rgb(255, 255, 255);
+          font-size:25px;
+          font-family:'Montserrat',sans-serif;
+          vertical-align:middle;
+          font-weight:bold;
+          margin-left:10px;
+      }
+      .text{
+          font-size: 20px;
+          text-align: center;
+          font-weight:lighter;
+          font-family:'Montserrat',sans-serif;
+          margin-top:35px;
+          margin-bottom:35px;
+      }
+      .mid-text{
+          font-size: 20px;
+          font-weight:lighter;
+          font-family:'Montserrat',sans-serif;
+          margin-top:35px;
+          margin-bottom:35px;
+          margin-left:10px;
+          width:90%;
+      }
+    </style>
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header d-flex align-items-center">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+      <a class="logo d-flex align-items-center">
+        <h1>Group 3<span>.</span></h1>
+      </a>
+
+      <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+      <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a href="GBAIndex.html">Intro</a></li>
+          <li><a href="global.html">Global View</a></li>
+          <li><a href="demographics.html">Labour Force</a></li>
+          <li><a href="economic.html" class="active">Economic</a></li>
+          <li><a href="projects.html">Renewal Projects</a></li>
+          <li><a href="acknowledgement.html">Acknowledgement</a></li>
+        </ul>
+      </nav>
+      <!-- .navbar -->
+
+    </div>
+
+  </header><!-- End Header -->
+
+  <main id="main">
+  <!-- ======= Breadcrumbs ======= -->
+
+  <div class="breadcrumbs d-flex align-items-center" style="background-image: url('assets/img/breadcrumbs-bg.jpg');"></div>
+    <div class="container position-relative d-flex flex-column align-items-center" data-aos="fade">
+
+      <!-- <h2>Services</h2>
+      <ol>
+        <li><a href="ConstructIndex.html">Home</a></li>
+        <li>Services</li>
+      </ol> -->
+  </div> 
+  
+  <div class="middleThings">
+    <p class="mid-text">
+      The following map displays the GDP and per capita GDP distribution of different regions in the Greater Bay Area, providing insights into each city's economic development. The color shading on the map indicates the varying levels of economic output. You can use the time slider to compare and analyze the changes in GDP from 2011 to 2020.
+    </p>
+  </div>
+
+    <!-- GDP map -->
+  <div class="flourish-embed">
+    <iframe id="map-frame1" src="./economic/GDP.html"></iframe>
+  </div>
+
+  <div class="middleThings">
+    <p class="mid-text">
+      The GDP and per capita GDP of the nine cities in the Greater Bay Area show varying degrees of growth from 2011 to 2020, demonstrating significant economic growth potential for the whole area.
+      <br>Similarly, there is a distribution map for industrial output. The following map showcases the proportion of the primary industry, secondary industry, and tertiary industry in the GDP of the Greater Bay Area from 2011 to 2020. Using the time slider, you can choose to display data from different years and obtain the following information:<br>
+      Importance of industries to different cities: Comparing the colors allows you to observe the relative importance of different industries in different cities. Deeper colors indicate a higher proportion of GDP in that industry in the respective region, while lighter colors indicate a lower proportion.<br>
+      Trends in industry changes: Using the slider, you can observe how the proportions of various industries in the GDP have changed over different years.
+    </p>
+  </div>
+
+   <!-- gdp proportion chart -->
+   <div class="flourish-embed">
+    <iframe id="map-frame2" src="./economic/gdpproportion.html"></iframe>
+  </div>
+
+  <div class="middleThings">
+    <p class="mid-text">
+      Between 2011 and 2020, the economic structure of the Greater Bay Area has undergone significant changes, showing a transition trend from secondary to tertiary industries. Firstly, the proportion of primary industries (agriculture, forestry, fishing, etc.) is relatively small and gradually decreasing. This is due to the advancement of urbanization. <br>
+      Secondly, the proportion of secondary industries (manufacturing, construction, etc.) is also gradually decreasing. With the economic transformation and industrial upgrading, some traditional manufacturing activities have gradually shifted to other regions or countries. Nevertheless, the Greater Bay Area still plays an important role as a manufacturing hub, especially for cities such as Dongguan. Finally, the proportion of the tertiary industry (service industry) is gradually increasing. With economic development and urbanization, the service sector is playing an increasingly important role in the economy of the Greater Bay Area. In particular, the proportion of the service industry in core cities such as Shenzhen and Guangzhou have increased significantly.
+    </p>
+  </div>
+
+
+  <!-- manufacture chart -->
+  <div class="flourish-embed">
+    <iframe id="map-frame3" src="./economic/manufacture.html"></iframe>
+  </div>
+
+
+    <div class="middleThings">
+      <p class="mid-text">
+        <b>This treemap</b> illustrates the manufacturing output value of different product categories in the Greater Bay Area from 2011 to 2020. The data is sourced from the Statistical Yearbook of Guangdong Province and covers 19 major product categories. Using the slider, you can choose to display data from different years and obtain the following information:
+    <br><br>The proportion of production value by category: The size of each rectangular block in the treemap represents the proportion of the production value of a certain category in the total manufacturing output value. Larger blocks indicate higher output value and a larger proportion. By comparing the sizes of different blocks, you can understand the importance of each product category in the manufacturing industry of the Greater Bay Area.
+    <br><br>Evolution of the manufacturing industry structure: By observing the trends of the output value of different product categories, you can understand the evolution of the manufacturing industry structure in the Greater Bay Area. If the proportion of a certain product category is gradually increasing, it indicates its growing importance, possibly reflecting rapid industry development or government support. Conversely, a decreasing proportion may indicate challenges or transformations in the industry.
+    <br><br>
+    From the Treemap, you can see that the industrial wastewater and industrial sulfur dioxide emissions in the Greater Bay Area have shown a gradual reduction trend in the past decade. With economic development and technological progress, many traditional manufacturing activities have gradually moved to other regions or countries. 
+      </p>
+    </div>
+  </p>
+
+  <!-- emissions chart -->
+  <div class="flourish-embed">
+    <iframe id="map-frame4" src="./economic/emissions.html"></iframe>
+  </div>
+
+  <div class="middleThings">
+    <p class="mid-text">
+      Dongguan has always played a major role in the industrial production of the Greater Bay Area, and its contribution to industrial wastewater and industrial sulfur dioxide emissions is relatively large. The production function of the secondary industry in Guangzhou and Foshan, two traditional industrial centers, began to shift to the surrounding cities. These cities are likely to face resource and environmental pressures and are therefore turning to more environmentally friendly and sustainable industries. The transformation helps to optimize the industrial structure and improve the quality and efficiency of the economy. At the same time, neighboring cities such as Jiangmen, Huizhou, and Zhaoqing have begun to undertake industrial production in the Greater Bay Area. The new industrial infrastructure and environmental planning in these cities provide an opportunity to achieve sustainable development. 
+    </p>
+  </div>
+
+  <!-- End Breadcrumbs -->
+
+  </main><!-- End #main -->
+
+
+
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+
+    <!-- 设置下一页按钮 -->
+    <div class="NextPage">
+      <div class="button-container">
+          <a href="projects.html" class="w3-button" style="background-color: #FEB900; color: #52565E;"><b>>></b> Renewal Projects</a>
+      </div>
+
+  </div>
+
+</footer>
+  <!-- End Footer -->
+
+  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

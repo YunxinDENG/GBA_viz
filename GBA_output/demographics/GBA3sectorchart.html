@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Three Sectors</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./js/d3.min.js"></script>
+    <script src="./js/d3-tip-v6.js"></script>
+    <link rel="stylesheet" href="./js/d3-tip.css">
+    <script src="https://unpkg.com/flubber@0.3.0"></script>
+    <script src="https://unpkg.com/topojson@3"></script>
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+        * {
+            margin: 0;
+        }
+        .chart {
+            width: 100%;
+            height: 100vh;
+            display: grid;
+            grid-template-rows: 10% 80%;
+            background-color: #f4f4f4;
+
+        }
+
+        #map {
+            width: 100%;
+        }
+
+        /* svg {
+            background-image: url("./img/world.png");
+            background-size: cover;
+        } */
+
+        .domain {
+            stroke: lightgray;
+        }
+
+        body {
+            margin: 0;
+            box-sizing: content-box;
+            z-index:1;
+        }
+        .title {
+            font-size: 45px;
+            text-align: center;
+            font-weight:lighter;
+            font-family:'Montserrat',sans-serif;
+            font-weight: bold;
+            color:rgb(0, 0, 0);
+        }
+        
+        .maptitle{
+            font-size: 30px;
+            text-align: center;
+            font-weight: lighter;
+            font-family: 'Montserrat',sans-serif;
+            font-weight: bold;
+            color: rgb(0, 0, 0);
+            margin-top:2%;
+            /* margin-left: 10%; */
+
+        }
+
+        text {
+            fill: gray
+
+        }
+
+
+
+        g line {
+            stroke: lightgray;
+        }
+
+        .right-side-div {
+            height: 100vh;
+            margin-left:10px;
+
+        }
+        .middleThings{
+            width: 50%;
+            margin: 0 auto;
+        }
+        .midHeader{
+            background-color:gray;
+            margin-top:50px;
+            margin-bottom:10px;
+            text-align: center;
+            color:rgb(255, 255, 255);
+            font-size:25px;
+            font-family:'Montserrat',sans-serif;
+            vertical-align:middle;
+            font-weight:bold;
+            margin-left:10px;
+        }
+        .text{
+            font-size: 20px;
+            text-align: center;
+            font-weight:lighter;
+            font-family:'Montserrat',sans-serif;
+            margin-top:35px;
+            margin-bottom:35px;
+        }
+        .mid-text{
+            font-size: 20px;
+            font-weight:lighter;
+            font-family:'Montserrat',sans-serif;
+            margin-top:35px;
+            margin-bottom:35px;
+            margin-left:10px;
+            width:100%;
+        }
+
+        .right-side-header{
+            background-color:#314563;
+            margin-bottom:10px;
+            color:rgb(255, 255, 255);
+            font-size:15px;
+            font-family:'Montserrat',sans-serif;
+            font-weight:bold;
+        }
+        .right-text {
+            background-color: #f1f1f1;
+            border-left: 2px solid gray;
+            font-family:'Montserrat',sans-serif;
+            padding: 5px;
+        }
+
+        #chartArea {
+            display: grid;
+            grid-template-columns: 70% 25%;
+            height: 99vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            width: 100%;
+            padding-right: 18px;
+        }
+        #container1 {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+
+        }
+
+        .flourish-embed{
+            text-align: center;
+            width: 100%;
+        }
+
+        .rough-box {
+            max-width: 500px;
+            margin: 0 auto;
+            margin-bottom:35px;
+            padding: 20px;
+            color: rgb(255, 255, 255);
+            background-image: paint(rough-painter);
+        }
+        .rough-box {
+            --rough-border-width: 3;
+            --rough-fill: rgb(194, 188, 188);
+            --rough-fill-weight: 9;
+            --rough-fill-style: zigzag;
+        }
+        .rough-box-title {
+            margin: 0 auto;
+            margin-top:70px;
+            margin-bottom:35px;
+            padding: 20px;
+            color: rgb(255, 255, 255);
+            background-image: paint(rough-painter);
+        }
+        .rough-box-title {
+            --rough-border-width: 3;
+            --rough-fill: rgb(219, 219, 219); 
+            --rough-fill-weight: 9;
+            --rough-fill-style: zigzag;
+        }
+        .button-container{
+            text-align: center;
+            margin-bottom: 35px;
+        }
+        
+        
+    </style>
+    <style>  
+        /* Top navigation style */
+        ul.navbar{
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index:10;
+
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            
+            background-color: rgb(0, 66, 66);
+            
+        }
+
+        li{
+            float: left;
+        }
+        ul.navbar li a{
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-family:'Montserrat',sans-serif;
+            font-weight: bold;
+        }
+        ul.navbar li a:hover{
+            color: white  ;
+            font-weight: bold;
+            background-color: gray;
+        }
+        .active {
+        background-color: #64a19d;
+        }
+    </style>
+</head>
+<body>
+<div class="flourish-embed flourish-chart" data-src="visualisation/13780142" data-width="70%" data-height="800px"><script src="https://public.flourish.studio/resources/embed.js"></script></div>
+</body>

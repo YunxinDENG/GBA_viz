@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Population Distribution</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.js"></script>
+    <style>
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #slider-container {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            z-index: 1;
+        }
+
+        .map-overlay h1 {
+            text-align: center;
+        }
+
+        .button-container {
+            text-align: center;
+        }
+
+        #slider {
+            width: 100%;
+            -webkit-appearance: none;
+            /* Remove the default appearance for Chrome and Safari */
+            appearance: none;
+            /* Remove the default appearance for Firefox */
+            height: 10px;
+            background: #ddd;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .1s;
+            /* Add transition for Chrome and Safari */
+            transition: opacity .1s;
+        }
+
+        #slider:hover {
+            opacity: 1;
+        }
+
+        #slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            /* Remove the default appearance for Chrome and Safari */
+            width: 20px;
+            height: 20px;
+            background: #dc4730;
+            cursor: pointer;
+            border-radius: 50%;
+            margin-top: -10px;
+        }
+
+        #slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: #4CAF50;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+        #slider-label {
+            display: block;
+            margin-top: 0;
+            text-align: center;
+        }
+
+        .map-overlay {
+            font: 10px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+            position: absolute;
+            width: 25%;
+            top: 0;
+            right: 0;
+            padding: 10px;
+            opacity: 85%
+        }
+
+        .map-overlay .map-overlay-inner {
+            background-color: #fff;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.20);
+            border-radius: 3px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .map-overlay table {
+            border: none;
+            width: 100%;
+
+        }
+
+        .map-overlay h2 {
+            line-height: 24px;
+            display: block;
+            margin: 0 0 10px;
+        }
+
+        .map-overlay input {
+            display: inline;
+            vertical-align: middle;
+            margin: 5px;
+            padding: 0;
+        }
+
+        .map-overlay p.credit {
+            margin: 0px 0 0 0;
+            padding: 0;
+        }
+
+        .map-overlay2 {
+            font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+            position: absolute;
+            width: 25%;
+            top: 25%;
+            right: 0;
+            padding: 10px;
+            opacity: 85%
+        }
+
+        .map-overlay3 {
+            font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+            position: absolute;
+            width: 12%;
+            top: 20%;
+            left: 0;
+            padding: 10px;
+            opacity: 85%
+        }
+
+        .map-overlay .map-overlay-inner2 {
+            background-color: #fff;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.20);
+            border-radius: 3px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .map-overlay3 .map-overlay-inner3 {
+            background-color: #fff;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.20);
+            border-radius: 3px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .blink {
+            color: rgb(216, 98, 30);
+            font-size: 14px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id='map'></div>
+    <div class='map-overlay'>
+        <div class="map-overlay-inner">
+
+            <h1> &nbsp;&nbsp;Greater Bay Area<br>Population Distribution (2011-2020)</h1>
+            <div class="button-container">
+                <input type="radio" name="layers" id="layer1" value="Employment" checked><label>Population
+                    &nbsp;
+                    &nbsp;</label>
+                <input type="radio" name="layers" id="layer2" value="Residents"><label>Population Density </label>
+            </div>
+            <table>
+                <tr>
+
+                    <td>
+                        <input type="range" min="0" max="9" value="0" class="slider" id="slider" step='1'
+                            list='tickmarks'>
+                        <datalist id="tickmarks">
+                            <option value="1" label="2011">
+                            <option value="2" label="2012">
+                            <option value="3" label="2013">
+                            <option value="4" label="2014">
+                            <option value="5" label="2015">
+                            <option value="6" label="2016">
+                            <option value="7" label="2017">
+                            <option value="8" label="2018">
+                            <option value="9" label="2019">
+                            <option value="10" label="2020">
+                        </datalist>
+                    </td>
+                    <td>
+                        <label id="slider-label" for="slider">2011</label>
+                    </td>
+
+                </tr>
+            </table>
+        </div>
+        <div class="map-overlay-inner2">
+
+            <div id='legend'>
+            </div>
+        </div>
+        
+    </div>
+    <div class='map-overlay3'>
+        <div class="map-overlay-inner3">
+
+            <p class="cityfly">&nbsp;&nbsp;Zoom in to:<br> &nbsp;
+                <a href="#" class="blink" id="gz">Guangzhou<br></a> &nbsp;
+                <a href="#" class="blink" id="sz">Shenzhen<br></a>&nbsp;
+                <a href="#" class="blink" id="zh">Zhuhai<br></a> &nbsp;
+                <a href="#" class="blink" id="fs">Foshan<br></a> &nbsp;
+                <a href="#" class="blink" id="dg">Dongguan<br></a>&nbsp;
+                <a href="#" class="blink" id="zs">Zhongshan<br></a>&nbsp;
+                <a href="#" class="blink" id="hz">Huizhou<br></a>&nbsp;
+                <a href="#" class="blink" id="zq">Zhaoqing<br></a>&nbsp;
+                <a href="#" class="blink" id="jm">Jiangmen</a>&nbsp;
+            </p>
+        </div>
+
+    </div>
+
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1Ijoia29yZW50aW5jaGVuIiwiYSI6ImNsZGJsN3J6MTAxb2UzcHF3aW5zOWpjZjYifQ.nooZmq1UgUTWIZ2GFIFjww';
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/korentinchen/cleubx2ku000501o9orjhj4gn', // Set the initial style
+            center: [113.9664385, 22.92911], // Set the initial center
+            zoom: 6.5, // Set the initial zoom level
+            pitch: 30
+        });
+
+        // Create an array of the available data years
+
+        var slider = document.getElementById("slider");
+        var sliderLabel = document.getElementById("slider-label");
+        var sliderValue = slider.value;
+        var years = ["2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020"];
+
+
+        slider.addEventListener("input", function (e) {
+            sliderLabel.textContent = years[slider.value];
+            var value = parseInt(slider.value);
+
+        });
+
+
+
+
+        map.on('load', function () {
+            // Add the line highlight layer. This layer has a filter, which initially is empty.
+            // Set global light properties which influence 3D layer shadows
+            map.setLight({ color: "#fff", intensity: 0.35, position: [1.15, 210, 30] });
+
+            // Add standard navigation control
+            var nav = new mapboxgl.NavigationControl();
+            map.addControl(nav, 'top-left');
+
+            map.addLayer({
+                id: 'ward',
+                type: 'fill',
+                source: {
+                    type: 'vector',
+                    url: 'mapbox://korentinchen.cnkq8yu3'
+                },
+                'source-layer': 'popde-808gcm',
+                'layout': {
+                    'visibility': 'visible'
+                },
+                paint: {
+                    'fill-color': '#F4A460',
+                    'fill-opacity': 0
+                }
+            });
+
+
+            // Add a layer for the shapefile
+            map.addLayer({
+                id: 'my-data-layer1',
+                type: 'fill-extrusion',
+                source: {
+                    type: 'vector',
+                    url: 'mapbox://korentinchen.cnkq8yu3'
+                },
+                'source-layer': 'popde-808gcm',
+                'layout': {
+                    'visibility': 'visible'
+                },
+                paint: {
+                    'fill-extrusion-color': [
+                        'interpolate',
+                        ['linear'],
+                        ['get', 'POP2011'],
+                        50000, '#FFF6C3',
+                        75000, '#FAEAB1',
+                        100000, '#FFD966',
+                        200000, '#FFD95A',
+                        250000, '#E5BA73',
+                        500000, '#C58940',
+                        1000000, '#C07F00',
+                        1200000, '#4C3D3D'
+
+                    ],
+                    'fill-extrusion-height': ['/', ['number', ['get', 'POP2011'], 2], 8], // Set the initial column to use
+                    'fill-extrusion-base': 10,
+                    'fill-extrusion-opacity': 0.95,
+                    'fill-extrusion-opacity-transition': {
+                        duration: 1000,
+                        delay: 0
+                    }
+                }
+            });
+
+            map.addLayer({
+                id: 'my-data-layer2',
+                type: 'fill-extrusion',
+                source: {
+                    type: 'vector',
+                    url: 'mapbox://korentinchen.cnkq8yu3'
+                },
+                'source-layer': 'popde-808gcm',
+                'layout': {
+                    'visibility': 'none'
+                },
+                paint: {
+                    'fill-extrusion-color': [
+                        'interpolate',
+                        ['linear'],
+                        ['get', 'popd2011'],
+                        0.1, '#F6E1C3',
+                        0.2, '#E9A178',
+                        0.3, '#F99B7D',
+                        0.5, '#E76161',
+                        0.7, '#B04759',
+                        5, '#A84448',
+                        7, '#643843'
+
+                    ],
+                    'fill-extrusion-height': ['/', ['number', ['get', 'popd2011'], 2], 0.00005], // Set the initial column to use
+                    'fill-extrusion-base': 10,
+                    'fill-extrusion-opacity': 0.95,
+                    'fill-extrusion-opacity-transition': {
+                        duration: 1000,
+                        delay: 0
+                    }
+                }
+            });
+            function updateColumnData() {
+                var sliderValue = slider.value;
+                var column = sliderValue == 0 ? 'POP2011' : sliderValue == 1 ? 'POP2012' : sliderValue == 2 ? 'POP2013' : sliderValue == 3 ? 'POP2014' : sliderValue == 4 ? 'POP2015' : sliderValue == 5 ? 'POP2016' : sliderValue == 6 ? 'POP2017' : sliderValue == 7 ? 'POP2018' : sliderValue == 8 ? 'POP2019' : 'POP2020';
+                var column2 = sliderValue == 0 ? 'popd2011' : sliderValue == 1 ? 'popd2012' : sliderValue == 2 ? 'popd2013' : sliderValue == 3 ? 'popd2014' : sliderValue == 4 ? 'popd2015' : sliderValue == 5 ? 'popd2016' : sliderValue == 6 ? 'popd2017' : sliderValue == 7 ? 'popd2018' : sliderValue == 8 ? 'popd2019' : 'popd2020';
+
+                return { column, column2 };
+            }
+            // Add event listener to slider
+            var slider = document.getElementById('slider');
+            slider.addEventListener('input', function (event) {
+                var column = event.target.value == 0 ? 'POP2011' : event.target.value == 1 ? 'POP2012' : event.target.value == 2 ? 'POP2013' : event.target.value == 3 ? 'POP2014' : event.target.value == 4 ? 'POP2015' : event.target.value == 5 ? 'POP2016' : event.target.value == 6 ? 'POP2017' : event.target.value == 7 ? 'POP2018' : event.target.value == 8 ? 'POP2019' : 'POP2020'; // Get the column name based on the slider value
+                map.setPaintProperty('my-data-layer1', 'fill-extrusion-height', ['/', ['number', ['get', column], 2], 8]); // Update the fill-extrusion-height property with the column values
+                map.setPaintProperty('my-data-layer1', 'fill-extrusion-color', [
+                    'interpolate',
+                    ['linear'],
+                    ['get', column],
+                    50000, '#FFF6C3',
+                    75000, '#FAEAB1',
+                    100000, '#FFD966',
+                    200000, '#FFD95A',
+                    250000, '#E5BA73',
+                    500000, '#C58940',
+                    1000000, '#C07F00',
+                    1200000, '#4C3D3D'
+                ]);
+
+                var column2 = event.target.value == 0 ? 'popd2011' : event.target.value == 1 ? 'popd2012' : event.target.value == 2 ? 'popd2013' : event.target.value == 3 ? 'popd2014' : event.target.value == 4 ? 'popd2015' : event.target.value == 5 ? 'popd2016' : event.target.value == 6 ? 'popd2017' : event.target.value == 7 ? 'popd2018' : event.target.value == 8 ? 'popd2019' : 'popd2020'; // Get the column name based on the slider value
+                map.setPaintProperty('my-data-layer2', 'fill-extrusion-height', ['/', ['number', ['get', column2], 2], 0.00005]); // Update the fill-extrusion-height property with the column values
+                map.setPaintProperty('my-data-layer2', 'fill-extrusion-color', [
+                    'interpolate',
+                    ['linear'],
+                    ['get', column2],
+                    0.1, '#F6E1C3',
+                    0.2, '#E9A178',
+                    0.3, '#F99B7D',
+                    0.5, '#E76161',
+                    0.7, '#B04759',
+                    5, '#A84448',
+                    7, '#643843'
+                ]);
+                updateColumnData();
+            });
+
+
+            // colors and values for 'gdp2D' layer
+            var gdp2DGrades = ['~5.0', '5-7.5', '7.5-10.0', '10.0-20.0', '20.0-30.0', '30.0-50.0', '50.0-100.0', '100.0-120.0'];
+            var gdp2DColors = ['#FFF6C3', '#FAEAB1', '#FFD966', '#FFD95A', '#E5BA73', '#C58940', '#C07F00', '#4C3D3D'];
+
+            // colors and values for 'gdp' layer
+            var gdpGrades = ['~0.1', '0.1-0.2', '0.2-0.3', '0.3-0.5', '0.5-1.0', '1.0-5.0', '5.0-10.0'];
+            var gdpColors = ['#F6E1C3', '#E9A178', '#F99B7D', '#E76161', '#B04759', '#A84448', '#643843'];
+            var legend = document.getElementById('legend');
+
+            // function to add one row in the legend
+            function addLegendRow(colors, grades, label) {
+                var labelElement = document.createElement('strong');
+                labelElement.innerHTML = label;
+                labelElement.style.marginLeft = '10px';
+                legend.appendChild(labelElement);
+
+                for (var i = 0; i < grades.length; i++) {
+                    var row = document.createElement('div');
+                    row.style.display = 'block';
+
+                    var box = document.createElement('div');
+                    box.style.backgroundColor = colors[i];
+                    box.style.marginLeft = '10px';
+                    box.style.width = '60px';
+                    box.style.height = '20px';
+                    box.style.display = 'inline-block';
+                    row.appendChild(box);
+
+                    var value = document.createElement('span');
+                    value.innerHTML = grades[i];
+                    value.style.marginLeft = '5px';
+                    value.style.marginRight = '5px';
+                    row.appendChild(value);
+
+                    legend.appendChild(row);
+                    // Add a line break after each row
+
+                }
+            }
+
+            addLegendRow(gdp2DColors, gdp2DGrades, 'Population ( people )');
+            addLegendRow(gdpColors, gdpGrades, 'Population Density ( 10,000 people / km<sup>2</sup> )');
+
+
+
+            //Event listener for layer switch
+            document.getElementById("layer1").addEventListener("click", function () {
+
+                map.setLayoutProperty('my-data-layer1', 'visibility', 'visible');
+                map.setLayoutProperty('my-data-layer2', 'visibility', 'none');
+
+            });
+
+            document.getElementById("layer2").addEventListener("click", function () {
+
+                map.setLayoutProperty('my-data-layer1', 'visibility', 'none');
+                map.setLayoutProperty('my-data-layer2', 'visibility', 'visible');
+            });
+
+            //Event listener for the zoom to buttons created using a for loop and switch case statement to set lat and long
+            var x = document.getElementsByClassName('blink');
+            var i;
+            for (i = 0; i < x.length; i++) {
+                x[i].addEventListener('click', function (e) {
+
+                    var lat, long;
+
+                    switch (e.target.id) {
+                        case "gz": lat = 23.1291; long = 113.2644; break;
+                        case "sz": lat = 22.5431; long = 114.0578; break;
+                        case "xg": lat = 22.2797; long = 114.1627; break;
+                        case "am": lat = 22.1987; long = 113.5491; break;
+                        case "zh": lat = 22.2707; long = 113.5767; break;
+                        case "fs": lat = 23.0215; long = 113.1214; break;
+                        case "dg": lat = 23.0206; long = 113.7525; break;
+                        case "zs": lat = 22.5223; long = 113.3831; break;
+                        case "hz": lat = 23.1115; long = 114.4168; break;
+                        case "zq": lat = 23.0515; long = 112.4727; break;
+                        case "jm": lat = 22.5786; long = 113.0819; break;
+                    }
+
+
+                    map.flyTo({
+                        center: [long, lat],
+                        zoom: 8.3,
+                        speed: 0.6,
+                        pitch: 35
+                    });
+                });
+            }
+
+
+        });
+    </script>
+</body>
+
+</html>
