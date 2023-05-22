@@ -67,7 +67,7 @@
     {
         "points": [-25.274398, 133.775136, 23.15792, 113.27324],
         "total": 8.584,
-        "percent": 0.0290,
+        "percent": 0.0291,
         "from": "Australia",
         "curvature": 0.5,
         "group": 1
@@ -122,7 +122,7 @@
     },
     {
         "points": [46.227638, 2.213749, 23.15792, 113.27324],
-        "total": 4.460,
+        "total": 4.461,
         "percent": 0.0151,
         "from": "France",
         "curvature": 0.5,
