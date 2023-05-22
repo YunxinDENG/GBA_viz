@@ -59,7 +59,7 @@
     {
         "points": [-0.789275, 113.921327, 23.15792, 113.27324],
         "total": 9.238,
-        "percent": 0.0313,
+        "percent": 0.0312,
         "from": "Indonesia",
         "curvature": 0.5,
         "group": 1
@@ -147,7 +147,7 @@
     {
         "points": [23.885942,45.079162, 23.15792, 113.27324],
         "total": 3.258,
-        "percent": 0.0110,
+        "percent": 0.0111,
         "from": "Saudi Arabia",
         "curvature": 0.5,
         "group": 1
