@@ -1,0 +1,156 @@
+[
+    {
+        "points": [23.15792, 113.27324, 22.39643, 114.1095 ],
+        "total": 154.454,
+        "percent": 0.1931,
+        "from": "Guangdong",
+        "to": "Hongkong, China",
+        "curvature": -0.5,
+        "group": 1
+    },
+    {
+        "points":[23.157,113.27324,37.09024,-95,713],
+        "total": 137.109,
+        "percent": 0.1714,
+        "to": "United States",
+        "curvature": 0.5,
+        "group": 1
+    },
+    {
+        "points": [23.157, 113.27324,36.20482,138.2529],
+        "total": 30.608,
+        "percent": 0.0382,
+        "to": "Japan",
+        "curvature": -0.3,
+        "group": 1
+    },
+    {
+        "points":[23.15792, 113.27324,14.05832,108.2772],
+        "total": 25.886,
+        "percent": 0.0323,
+        "to": "Vietnam",
+        "curvature": 0.5,
+        "group": 1
+    },
+    {
+        "points": [ 23.15792, 113.27324,20.59368,78.9628],
+        "total": 25.449,
+        "percent": 0.0318,
+        "to": "India",
+        "curvature": 0.5,
+        "group": 1
+    },
+    {
+        "points": [23.15792, 113.27324,52.13263,5.291266],
+        "total": 24.797,
+        "percent": 0.0309,
+        "to": "Netherlands",
+        "curvature": 0.5,
+        "group": 1
+    },
+    {
+        "points": [ 23.15792, 113.27324,51.16569, 10.45153 ],
+        "total": 22.563,
+        "percent": 0.0282,
+        "to": "Germany",
+        "curvature": 0.5,
+        "group": 1
+    },
+    {
+        "points": [ 23.15792, 113.27324,4.210484,101.9758],
+        "total":21.241,
+        "percent": 0.0265,
+        "to": "Malaysia",
+        "curvature": 0.5,
+        "group": 1
+    },
+    {
+        "points": [ 23.15792, 113.27324,55.37805,-3.436],
+        "total": 19.788,
+        "percent": 0.0247,
+        "to": "United Kingdom",
+        "curvature": 0.5,
+        "group": 1
+    },
+    { 
+        "points": [23.15792, 113.27324, 23.6345,-102.55],
+        "total":18.461,
+        "percent": 0.0231,
+        "to": "Mexico",
+        "curvature": 0.5,
+        "group": 1
+    },
+    {
+        "points":[23.15792,113.27324,35.90776,127.7669],
+        "total": 18.091,
+        "percent": 0.0226,
+        "to": "South Korea",
+        "curvature": 0.5,
+        "group": 1
+    },
+    {
+        "points":[23.15792, 113.27324,-25.274, 133.7751],
+        "total": 16.893,
+        "percent": 0.0211,
+        "to": "Australia",
+        "curvature": 0.5,
+        "group": 1
+    },
+    {
+        "points": [ 23.15792, 113.27324, 1.352083,103.8198],
+        "total": 16.093,
+        "percent": 0.0201,
+        "to": "Singapore",
+        "curvature": 0.5,
+        "group": 1
+    },
+    {
+        "points": [23.15792, 113.27324,15.87003,100.9925],
+        "total": 15.528,
+        "percent": 0.0194,
+        "to": "Thailand",
+        "curvature": 0.5,
+        "group": 1
+    },
+    {
+        "points": [ 23.15792, 113.27324, 23.69781, 120.9605],
+        "total": 13.201,
+        "percent": 0.0165,
+        "to": "Taiwan, China",
+        "curvature": 0.5,
+        "group": 1
+    },
+    {
+        "points": [ 23.15792, 113.27324, 61.52401, 105.3188],
+        "total": 12.325,
+        "percent": 0.0154,
+        "to": "Russia",
+        "curvature": 0.5,
+        "group": 1
+    },
+    {
+        "points": [23.15792, 113.27324, 56.13037, -106.35],
+        "total": 12.003,
+        "percent": 0.0151,
+        "to": "Canada",
+        "curvature": 0.5,
+        "group": 1
+    },
+    {
+        "points": [23.15792, 113.27324, 41.87194, 12.56738],
+        "total": 11.592,
+        "percent": 0.0144,
+        "to": "Italy",
+        "curvature": 0.5,
+        "group": 1
+    },
+{
+        "points": [23.15792, 113.27324, 12.879721, 121.774017],
+        "total": 11.224,
+        "percent": 0.014031,
+        "to": " Philippines",
+        "curvature": 0.5,
+        "group": 1
+    }
+]
+
