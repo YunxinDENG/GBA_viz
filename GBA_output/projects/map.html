@@ -8,7 +8,7 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.3.2/dist/echarts.min.js"></script>
     <script charset="utf-8" src="https://d3js.org/d3.v4.min.js"></script>
-    <link href='../assets/css/promapstyle.css' rel='stylesheet' />
+    <link href='promapstyle.css' rel='stylesheet' />
 
 </head>
 
@@ -54,9 +54,8 @@
 </div>
 <div id='zengcheng'>
     <h1>Zengcheng<h1>
-        <p>Zengcheng's geographical conditions were ideal for agriculture and supported the development of handicrafts. 
-            <br><br>However, the district has since shifted its focus towards the growth of IT, Trade Services, and Automotive Manufacturing Industry.
-        </p>
+    <p>The geographical conditions of Zengcheng District were suitable for agriculture, which was once mainly developed. In addition, handicrafts were also developed on a certain scale in Zengcheng District.<br>
+    <br>Now it working on the development of Technology Services, Trade Services, New Generation Information Technology and Automotive Manufacturing Industry.</p>
      <div id="zc_chart"></div> 
 </div>
 <div id='tianhe'>
@@ -79,9 +78,9 @@
 </div>
 <div id='baiyun'>
     <h1>Baiyun<h1>
-    <p>A few decades ago, the leading industries in the Baiyun district were light industry, particularly textiles and clothing.
-    <br><br>But now it focuses on Modern Services and Strategic Emerging Industries, especially Trade Services.</p>
-    <div id="by_chart"></div> 
+        <p>A few decades ago, the leading industries in the Baiyun district were light industry, particularly textiles and clothing.<br><br>
+            The Baiyun district now focuses on the development of Modern Services and Strategic Emerging Industries, especially Trade Services in Modern Services.</p>
+          <div id="by_chart"></div> 
 </div>
 
 <!-- legend block -->
@@ -106,9 +105,89 @@
             c5: Electronic Information Manufacturing&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c6: Other Manufacturing Industries</p>
     </div>
     </div>
+
+
+    <!-- sided text block -->
+    <!-- <div id="text-wrap">
+        <p>3</p>
+        <p>2</p>
+        <div id="area"></div>
+        <p>1</p>
+    </div> -->
+
+    <!-- <script type="text/javascript">
+        var dom = document.getElementById('area');
+                var myChart = echarts.init(dom, null, {
+                  renderer: 'canvas',
+                  useDirtyRect: false
+                });
+                
+                var option;
+                option = {
+                    title: {
+                        text: 'Urban Renewal Project Area',
+                        subtext: '(2019-2021)',
+                        subtextStyle: {
+                            fontSize: 13,
+                            marginTop: '-10px'
+                        },
+                        left: 'center'
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                        type: 'shadow'
+                        }
+                    },
+                    legend: {
+                        top: '10%'
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '1%',
+                        containLabel: true
+                    },
+                    xAxis: {
+                        type: 'value',
+                        boundaryGap: [0, 0.01],
+                        width: '100%'
+                    },
+                    yAxis: {
+                        type: 'category',
+                        data: ['Guangzhou', 'Shenzhen', 'Zhuhai',  'Foshan', 'Huizhou', 'Dongguan', 'Zhongshan', 'Jiangmen', 'Zhaoqing']
+                    },
+                    series: [
+                        {
+                        name: 'newly added area',
+                        type: 'bar',
+                        data: [54, 27, 9, 40, 9.5, 21, 9.6, 9.5, 8]
+                        },
+                        {
+                        name: 'completed area',
+                        type: 'bar',
+                        data: [35, 14, 6, 25, 6, 18, 6, 6, 4.5]
+                        }
+                    ],
+                    graphic: [{
+                        type: 'text',
+                        left: '5%',
+                        bottom: '1%',
+                        style: {
+                            text: '(Unit: k)',
+                            // font: 'bold 14px Microsoft YaHei',
+                            fontSize: 13,
+                        }
+                    }]
+                    };
+                    if (option && typeof option === 'object') {
+                  myChart.setOption(option);
+                }
+            
+                window.addEventListener('resize', myChart.resize);
+        </script> -->
  
     
-
 <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoiMjIxMjg3MjQiLCJhIjoiY2xkMWg3dGI2MGN1MDN3cDk5NDdueGJpZiJ9.7ovXoWFtyVuOWPhr4a5d1Q'; // Put your Mapbox Public Access token here
 
@@ -116,7 +195,7 @@
     var map = new mapboxgl.Map({
     container: 'map', // container id
     style: 'mapbox://styles/22128724/clhme0jdg01nf01qu6bzxbjl6', // style location
-    center: [113.005, 23.215], // starting position [lng, lat]
+    center: [113.305, 23.215], // starting position [lng, lat]
     zoom: 8// starting zoom
 
     });
@@ -124,7 +203,7 @@
     map.on('load', function () {
     map.addSource("districts", {
         "type": "geojson",   
-        "data": "https://raw.githubusercontent.com/YunxinDENG/GBA_viz/main/project/data/district.geojson"
+        "data": "https://raw.githubusercontent.com/YunxinDENG/GBA_viz/main/old_version/project/data/district.geojson"
     });
 
     map.addSource('places', {
