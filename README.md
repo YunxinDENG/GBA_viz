@@ -40,4 +40,6 @@ An interactive data visualization platform analyzing industrial transformation i
 ## Technical Stack
     A[D3.js] --> B{Visualizations}
     C[Chart.js] --> B
-    D[Mapbox GL] --> E[Ge
+    D[Mapbox GL] --> E[Geospatial Analysis]
+    F[Python Pandas] --> G[Data Processing]
+    H[Flask] --> I[API Endpoints]
