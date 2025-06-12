@@ -1,6 +1,8 @@
 # Greater Bay Area Industrial Transformation Dashboard
 
 ![Preview](https://yunxindeng.github.io/) 
+![屏幕截图 2025-06-12 170509](https://github.com/user-attachments/assets/8e957c6d-0294-4594-afc9-a569f476883f)
+
 
 An interactive data visualization platform analyzing industrial transformation in China's Guangdong-Hong Kong-Macao Greater Bay Area (GBA), covering four key dimensions:
 
